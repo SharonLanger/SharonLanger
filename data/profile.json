@@ -21,7 +21,7 @@
       "url": ""
     },
     {
-      "label": "Blog (Hashnode)",
+      "label": "Blog",
       "icon": "book",
       "url": "https://sharonlanger.hashnode.dev"
     },
@@ -74,6 +74,6 @@
     }
   ],
   "layout": {
-    "projectsPerRow": 3
+    "projectsPerRow": 2
   }
 }
