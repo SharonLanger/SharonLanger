@@ -3,12 +3,12 @@
     {
       "id": "agent-playbook",
       "name": "Agent Playbook",
-      "icon": "bot",
+      "icon": "agent-playbook",
       "description": "Local-first agent workflows, orchestration, observability, and adapters.",
       "tags": [
-        "Python",
-        "Agents",
-        "Orchestration"
+        "python",
+        "agents",
+        "orchestration"
       ],
       "links": {
         "repo": "https://github.com/SharonLanger/agent-playbook",
@@ -19,12 +19,12 @@
     {
       "id": "claude-backstage",
       "name": "Claude Backstage",
-      "icon": "layers",
+      "icon": "claude-backstage",
       "description": "Developer tooling and workflow visibility for Claude Code.",
       "tags": [
-        "TypeScript",
-        "Claude",
-        "DX"
+        "typescript",
+        "claude",
+        "dx"
       ],
       "links": {
         "repo": "https://github.com/SharonLanger/claude-backstage",
@@ -35,12 +35,12 @@
     {
       "id": "system-one-harness",
       "name": "System One Harness",
-      "icon": "bolt",
+      "icon": "system-one-harness",
       "description": "Experiments with fast AI decision layers and agent runtime behavior.",
       "tags": [
-        "AI",
-        "MLX",
-        "Experiments"
+        "ai",
+        "mlx",
+        "experiments"
       ],
       "links": {
         "repo": "https://github.com/SharonLanger/system-one-harness",
@@ -51,12 +51,12 @@
     {
       "id": "repo-probe",
       "name": "Repo Probe",
-      "icon": "layers",
+      "icon": "claude-backstage",
       "description": "Maps codebase metrics by folder and derives bottom-up insights.",
       "tags": [
-        "TypeScript",
-        "Code Metrics",
-        "Dev Tools"
+        "typescript",
+        "code-metrics",
+        "dev-tools"
       ],
       "links": {
         "repo": "https://github.com/SharonLanger/repo-probe"
@@ -66,12 +66,12 @@
     {
       "id": "kafka-count-words",
       "name": "Kafka Count Words",
-      "icon": "bolt",
+      "icon": "system-one-harness",
       "description": "Kafka-based asynchronous word counting with topics and parallel consumers.",
       "tags": [
-        "Java",
-        "Kafka",
-        "Concurrency"
+        "java",
+        "kafka",
+        "concurrency"
       ],
       "links": {
         "repo": "https://github.com/SharonLanger/kafkaCountWords"
@@ -81,12 +81,12 @@
     {
       "id": "cache-server",
       "name": "Cache Server",
-      "icon": "layers",
+      "icon": "claude-backstage",
       "description": "Spring Boot service for cached numbers, asynchronous tasks, and REST endpoints.",
       "tags": [
-        "Java",
-        "Spring",
-        "REST"
+        "java",
+        "spring",
+        "rest"
       ],
       "links": {
         "repo": "https://github.com/SharonLanger/cacheserver"
@@ -96,12 +96,12 @@
     {
       "id": "smart-polls-react",
       "name": "Smart Polls UI",
-      "icon": "layers",
+      "icon": "claude-backstage",
       "description": "React interface for the Smart Polls app, connected to its backend.",
       "tags": [
-        "React",
-        "UI",
-        "Polls"
+        "react",
+        "ui",
+        "polls"
       ],
       "links": {
         "repo": "https://github.com/SharonLanger/smart-polls-react"
@@ -111,12 +111,12 @@
     {
       "id": "telegram-poll-bot",
       "name": "Telegram Poll Bot",
-      "icon": "bot",
+      "icon": "agent-playbook",
       "description": "Telegram bot integration for creating and sharing Smart Polls.",
       "tags": [
-        "Telegram",
-        "Bot",
-        "Polls"
+        "telegram",
+        "bot",
+        "polls"
       ],
       "links": {
         "repo": "https://github.com/SharonLanger/TelegramPollBot"
@@ -129,9 +129,9 @@
       "icon": "flask",
       "description": "Backend microservice for Smart Polls with PostgreSQL and Telegram bot integration.",
       "tags": [
-        "Backend",
-        "PostgreSQL",
-        "Telegram"
+        "backend",
+        "postgresql",
+        "telegram"
       ],
       "links": {
         "repo": "https://github.com/SharonLanger/smart-polls-backend"

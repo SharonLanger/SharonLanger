@@ -1,0 +1,127 @@
+{
+  "agent-playbook": {
+    "label": "Agent Playbook",
+    "file": "agent-playbook.svg"
+  },
+  "agents": {
+    "label": "Agents"
+  },
+  "ai": {
+    "label": "AI"
+  },
+  "ai-llms": {
+    "label": "AI / LLMs"
+  },
+  "backend": {
+    "label": "Backend"
+  },
+  "book": {
+    "label": "Book",
+    "file": "book.svg"
+  },
+  "bot": {
+    "label": "Bot"
+  },
+  "check": {
+    "label": "Check mark",
+    "file": "check.svg"
+  },
+  "claude": {
+    "label": "Claude"
+  },
+  "claude-backstage": {
+    "label": "Claude Backstage",
+    "file": "claude-backstage.svg"
+  },
+  "code-metrics": {
+    "label": "Code Metrics"
+  },
+  "concurrency": {
+    "label": "Concurrency"
+  },
+  "dev-tools": {
+    "label": "Dev Tools"
+  },
+  "docker": {
+    "label": "Docker",
+    "file": "docker.svg"
+  },
+  "dx": {
+    "label": "DX"
+  },
+  "experiments": {
+    "label": "Experiments"
+  },
+  "flask": {
+    "label": "Flask",
+    "file": "flask.svg"
+  },
+  "github": {
+    "label": "GitHub",
+    "file": "github.svg"
+  },
+  "java": {
+    "label": "Java"
+  },
+  "kafka": {
+    "label": "Kafka"
+  },
+  "linkedin": {
+    "label": "LinkedIn",
+    "file": "linkedin.svg"
+  },
+  "mail": {
+    "label": "Mail",
+    "file": "mail.svg"
+  },
+  "mlx": {
+    "label": "MLX"
+  },
+  "node-js": {
+    "label": "Node.js",
+    "file": "node-js.svg"
+  },
+  "observability": {
+    "label": "Observability"
+  },
+  "orchestration": {
+    "label": "Orchestration"
+  },
+  "polls": {
+    "label": "Polls"
+  },
+  "postgresql": {
+    "label": "PostgreSQL"
+  },
+  "project": {
+    "label": "Project",
+    "file": "project.svg"
+  },
+  "python": {
+    "label": "Python",
+    "file": "python.svg"
+  },
+  "react": {
+    "label": "React"
+  },
+  "rest": {
+    "label": "REST"
+  },
+  "spring": {
+    "label": "Spring"
+  },
+  "system-one-harness": {
+    "label": "System One Harness",
+    "file": "system-one-harness.svg"
+  },
+  "telegram": {
+    "label": "Telegram"
+  },
+  "typescript": {
+    "label": "TypeScript",
+    "file": "typescript.svg"
+  },
+  "ui": {
+    "label": "UI"
+  }
+}

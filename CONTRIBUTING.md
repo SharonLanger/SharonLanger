@@ -1,6 +1,6 @@
 # Editing your profile
 
-Edit `data/profile.json` for your name, headline, About text, checklist, social links, skill names/icons, `layout.projectsPerRow` (1–4). Edit `data/projects.json` to add or reorder projects. Set `featured` to `true` to display a project. One JSON object plus regeneration is enough; do not edit the generated README or SVGs by hand.
+Edit `data/profile.json` for your name, headline, About text, checklist, social links, the list of skill IDs, and `layout.projectsPerRow` (1–4). Edit `data/projects.json` to add or reorder projects. Set `featured` to `true` to display a project. One JSON object plus regeneration is enough; do not edit the generated README or SVGs by hand.
 
 Requires Node.js 22.6 or newer. No `npm install` or external runtime dependencies are needed.
 
@@ -11,7 +11,13 @@ npm run check    # verify all generated files, including removal of obsolete one
 npm run preview  # render the actual generated markup in .profile-preview/index.html
 ```
 
-Project icons: `bot`, `bolt`, `layers`, `flask` (other values use the default icon). All text in the designed sections is generated from JSON as vector glyphs using the locally included Silkscreen font, under the SIL Open Font License (see `assets/fonts/OFL.txt`). The font outlines are committed in `scripts/pixel-glyphs.ts` so generation requires no font tooling or external resources. For best results use Latin letters, digits and common punctuation; unsupported characters appear as `?` in artwork, though their original wording remains in image alt text. The scene remains a separate WebP asset. `avatar-circle.png` is the transparent portrait embedded by the generator into desktop identity SVGs; `avatar.webp` preserves the original portrait.
+## Icons and tags
+
+`data/icons.json` maps each ID to a `label` and an optional SVG filename in `assets/icons/`. For example, `"python": { "label": "Python", "file": "python.svg" }` gives both the project tag and the Tech & Tools badge the same logo. A label-only entry such as `"orchestration": { "label": "Orchestration" }` renders as text. To change the artwork everywhere, replace the SVG or change its filename in the catalog and rebuild.
+
+In `data/projects.json`, `icon` selects the project artwork and `tags` lists up to three catalog IDs. A project icon entry without an SVG uses the catalog's `project` icon. In `data/profile.json`, `skills` lists catalog IDs and each link has its own visible label and a catalog ID in `icon`. Use local, self-contained SVG files. Sources and licenses for the included icons are documented in `assets/icons/README.md`.
+
+All text in the designed sections is generated from JSON as vector glyphs using the locally included Silkscreen font, under the SIL Open Font License (see `assets/fonts/OFL.txt`). The font outlines are committed in `scripts/pixel-glyphs.ts` so generation requires no font tooling or external resources. For best results use Latin letters, digits and common punctuation; unsupported characters appear as `?` in artwork, though their original wording remains in image alt text. The scene remains a separate WebP asset. `avatar-circle.png` is the transparent portrait embedded by the generator into desktop identity SVGs; `avatar.webp` preserves the original portrait.
 
 Each project image is one link to its repository. Optional `docs` and `demo` URLs are validated in JSON but are not shown within the linked card; include those links in the project repository when needed. Social links with empty URLs are hidden. Keep URLs real and `https://` only.
 
