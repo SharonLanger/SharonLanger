@@ -70,7 +70,7 @@ export function renderProjectTable(items:Project[],columns=3):string{
     for(const p of section){
       cards.push(`<a href="${esc(p.links.repo)}" aria-label="${esc(p.name)} repository"><img src="assets/generated/${p.id}.svg" alt="${esc(p.name)} — ${esc(p.description)}" width="${cardWidth}" /></a>`);
     }
-    rows.push(`<p align="center">${cards.join(' ')}</p>`);
+    rows.push(`<p align="center">${cards.join(' &nbsp;&nbsp; ')}</p>`);
   }
   return rows.join('\n');
 }
