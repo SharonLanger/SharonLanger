@@ -27,6 +27,14 @@ test('actual project list starts in the requested order and uses verified links'
  assert.equal(projects.length,9);
  assert.ok(projects.every(p=>p.links.repo.startsWith('https://github.com/SharonLanger/')));
 });
+test('mobile selects compact cards and an identity without the portrait',()=>{
+ const files=outputs(profile,projects),readme=files.get('README.md')!;
+ assert.match(readme,/media="\(max-width: 600px\)" srcset="assets\/generated\/identity-light.svg"/);
+ assert.match(readme,/agent-playbook-mobile\.svg/);
+ assert.ok(!files.get('assets/generated/identity-light.svg')!.includes('<image'));
+ assert.match(files.get('assets/generated/identity-desktop-light.svg')!,/data:image\/png;base64,/);
+ assert.ok(!readme.includes('src="assets/avatar-circle'));
+});
 test('empty optional links remain hidden',()=>{const text=renderReadme(profile,projects);assert.ok(!text.includes('href=""'));assert.ok(!text.includes('LinkedIn'));});
 test('profile SVGs reflect changed text and escape markup',()=>{
   const changed={...profile,name:'A New Name',headline:'A new headline',about:{description:'Hello <world>',highlights:['Build & share']}};
