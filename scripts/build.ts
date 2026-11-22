@@ -163,12 +163,14 @@ export function renderReadme(p:Profile,projects:Project[],page=0):string{
  assert(page>=0&&page<pageCount,`Project page ${page+1} does not exist`);
  const base=page===0?'assets/':'../assets/';
  const cards=renderProjectTable(featured.slice(page*p.layout.projectsPerPage,(page+1)*p.layout.projectsPerPage),p.layout.projectsPerRow,base);
+ const gallery=`<a name="featured-projects"></a>\n<p align="center">${themed('heading-projects','Featured Projects',350,base)}</p>\n${projectPager(page,pageCount,base)}\n${cards}`;
+ if(page>0)return `<!-- GENERATED FILE. Edit data/profile.json or data/projects.json, then run npm run build. -->\n\n${gallery}\n`;
  const links=showLinks(p.links,base);
  return `<!-- GENERATED FILE. Edit data/profile.json or data/projects.json, then run npm run build. -->\n\n`+
  `<p align="center"><img src="${base}hero.webp" alt="Cozy pixel-art cabin at sunset. Sharon codes beside Winston, a cat, and a friendly AI robot." width="100%" /></p>\n\n`+
  `<p align="center">${responsiveIdentity(p,base)}</p>\n`+
  (links?`<p align="center">${links}</p>\n`:'')+`\n`+
- `<a name="featured-projects"></a>\n<p align="center">${themed('heading-projects','Featured Projects',350,base)}</p>\n${projectPager(page,pageCount,base)}\n${cards}\n\n`+renderAbout(p,base)+`\n\n`+
+ `${gallery}\n\n`+renderAbout(p,base)+`\n\n`+
  `<p align="center"><img src="${base}footer.webp" alt="Winston the dog and a sleeping cat resting in the grass" width="100%" /></p>\n\n`+
  `<!-- Generated with local TypeScript; see CONTRIBUTING.md for editing instructions. -->\n`;
 }

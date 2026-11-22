@@ -34,6 +34,12 @@ test('pagination uses one configurable page size and links every project once',(
  assert.match(pages[0],/href="projects\/page-2\.md#featured-projects"/);
  assert.match(pages[1],/href="\.\.\/README\.md#featured-projects"/);
  assert.match(pages[1],/src="\.\.\/assets\/generated\/system-one-harness\.svg"/);
+ for(const page of pages.slice(1)){
+  assert.ok(!page.includes('hero.webp'));
+  assert.ok(!page.includes('identity-desktop'));
+  assert.ok(!page.includes('profile-info-desktop'));
+  assert.ok(!page.includes('footer.webp'));
+ }
  pages.forEach((text,i)=>{
   assert.equal((text.match(/aria-label="Page \d+ of 5/g)??[]).length,5);
   assert.equal((text.match(/aria-label="[^"]+ repository"/g)??[]).length,i===4?1:2);
