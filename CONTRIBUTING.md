@@ -1,12 +1,12 @@
 # Editing your profile
 
-Edit `data/profile.json` for your name, headline, About text, checklist, social links, skill names/icons, `layout.projectsPerPage` (1–12), and `layout.projectsPerRow` (1–4). Edit `data/projects.json` to add or reorder projects. Set `featured` to `true` to display a project. One JSON object plus regeneration is enough; do not edit the generated README, project pages, or SVGs by hand.
+Edit `data/profile.json` for your name, headline, About text, checklist, social links, skill names/icons, `layout.projectsPerRow` (1–4). Edit `data/projects.json` to add or reorder projects. Set `featured` to `true` to display a project. One JSON object plus regeneration is enough; do not edit the generated README or SVGs by hand.
 
 Requires Node.js 22.6 or newer. No `npm install` or external runtime dependencies are needed.
 
 ```bash
-npm run build    # regenerate README, project pages and SVGs; remove obsolete generated files
-npm run test     # validate config, links, pagination, and rows with 3–6 projects
+npm run build    # regenerate README and SVGs; remove obsolete generated files
+npm run test     # validate config, featured selection, links, and rows with 3–6 projects
 npm run check    # verify all generated files, including removal of obsolete ones
 npm run preview  # render the actual generated markup in .profile-preview/index.html
 ```
@@ -17,7 +17,9 @@ Each project image is one link to its repository. Optional `docs` and `demo` URL
 
 ## GitHub rendering
 
-GitHub sanitizes CSS and JavaScript. The arrows and dots therefore link to generated Markdown pages (`README.md`, then `projects/page-2.md`, etc.); clicking changes the URL and shows the next group, rather than animating cards in place. Subsequent pages contain only the Featured Projects heading, navigation, and cards. `projectsPerPage: 2` shows two complete cards per page, stacked on narrow screens and side by side when there is room. `projectsPerRow` limits the number of cards in a wide row if the page size changes. The selected dot reflects the current page, and the arrows wrap around. All featured projects appear in JSON order. On the main README, narrow screens select an identity without the portrait and a stacked About → checklist → Tech & Tools illustration. Wider screens put the portrait beside the name and Tech & Tools to the right of About. The light and dark text assets use `<picture>` and `prefers-color-scheme`. Exact wrapping depends on the viewer viewport. The local preview displays page one of the generated markup; use the GitHub-rendered PR to inspect the full navigation.
+The README displays all projects marked `featured: true` on one page, in JSON order. The three selected showcase projects are Agent Playbook, Claude Backstage, and System One Harness. Other project entries remain available in JSON but are hidden with `featured: false`; the top **All projects** link opens the repository list.
+
+`projectsPerRow` controls the maximum number of cards per row. Fixed-width linked cards wrap on narrow screens, keeping descriptions and tags readable. There are no paging controls or additional project pages. Narrow screens select an identity without the portrait and a stacked About → checklist → Tech & Tools illustration. Wider screens put the portrait beside the name and Tech & Tools to the right of About. The light and dark text assets use `<picture>` and `prefers-color-scheme`. The local preview displays the generated markup; inspect GitHub for final rendering.
 
 SVG outline lettering stays visually consistent on different machines. Its letters are not selectable like ordinary HTML text; the README supplies descriptive `alt` text and meaningful link labels for accessibility and its source retains the searchable wording. The optional project links are not interactive inside a card image; the whole image navigates to the repository.
 

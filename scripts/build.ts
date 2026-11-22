@@ -10,7 +10,7 @@ export type Profile = {
   name:string; headline:string;
   about:{description:string;highlights:string[]};
   links:SocialLink[]; skills:Skill[];
-  layout:{projectsPerRow:number;projectsPerPage:number};
+  layout:{projectsPerRow:number};
 };
 export type Project = {
   id:string; name:string;icon:string;description:string;tags:string[];
@@ -32,7 +32,6 @@ export function validate(profile:Profile, projects:Project[]):void{
   assert(Array.isArray(profile.links),'links must be an array');
   profile.links.forEach((l,i)=>{requireText(l.label,`link label ${i}`,40);requireText(l.icon,`link icon ${i}`,30);validateOptionalLink(l.url,`link ${i}`);});
   assert(Number.isInteger(profile.layout.projectsPerRow)&&profile.layout.projectsPerRow>=1&&profile.layout.projectsPerRow<=4,'layout.projectsPerRow must be 1-4');
-  assert(Number.isInteger(profile.layout.projectsPerPage)&&profile.layout.projectsPerPage>=1&&profile.layout.projectsPerPage<=12,'layout.projectsPerPage must be 1-12');
   assert(Array.isArray(projects),'projects must be an array');
   const ids=new Set<string>();
   for(const [i,p] of projects.entries()){
@@ -137,34 +136,10 @@ function renderAbout(p:Profile,base='assets/'):string{
  `<img src="${base}generated/profile-info-desktop-light.svg" alt="${esc(alt)}" width="790" /></picture></p>`;
 }
 export const slug=(s:string)=>s.toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'');
-function pageHref(target:number,current:number):string{
- const path=target===0?(current===0?'README.md':'../README.md'):
-  (current===0?`projects/page-${target+1}.md`:`page-${target+1}.md`);
- return `${path}#featured-projects`;
-}
-function projectPager(page:number,total:number,base:string):string{
- if(total<=1)return '';
- const previous=(page-1+total)%total,next=(page+1)%total;
- const control=(target:number,icon:string,label:string,w:number)=>
-  `<a href="${pageHref(target,page)}" aria-label="${esc(label)}"><img src="${base}generated/${icon}.svg" alt="${esc(label)}" width="${w}" /></a>`;
- const dots=Array.from({length:total},(_,i)=>control(i,i===page?'pager-dot-active':'pager-dot',`Page ${i+1} of ${total}${i===page?' (current)':''}`,24)).join(' ');
- return `<p align="center">${control(previous,'pager-left',`Previous projects, page ${previous+1} of ${total}`,42)} &nbsp; ${dots} &nbsp; ${control(next,'pager-right',`Next projects, page ${next+1} of ${total}`,42)}</p>`;
-}
-function pagerIconSvg(name:string):string{
- const start=`<svg xmlns="http://www.w3.org/2000/svg" width="${name.startsWith('pager-dot')?24:42}" height="${name.startsWith('pager-dot')?32:42}" role="img">`;
- if(name==='pager-dot-active')return start+'<circle cx="12" cy="16" r="6" fill="#f7e2b5"/><circle cx="12" cy="16" r="8" fill="none" stroke="#655184" stroke-width="2"/></svg>';
- if(name==='pager-dot')return start+'<circle cx="12" cy="16" r="5" fill="#7b83a3"/></svg>';
- const left=name==='pager-left';
- return start+`<circle cx="21" cy="21" r="18" fill="#24304d" stroke="#9a9ab7" stroke-width="2"/><path d="${left?'m24 13 -8 8 8 8':'m18 13 8 8 -8 8'}" fill="none" stroke="#f2edff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
-}
-export function renderReadme(p:Profile,projects:Project[],page=0):string{
- const featured=projects.filter(x=>x.featured);
- const pageCount=Math.max(1,Math.ceil(featured.length/p.layout.projectsPerPage));
- assert(page>=0&&page<pageCount,`Project page ${page+1} does not exist`);
- const base=page===0?'assets/':'../assets/';
- const cards=renderProjectTable(featured.slice(page*p.layout.projectsPerPage,(page+1)*p.layout.projectsPerPage),p.layout.projectsPerRow,base);
- const gallery=`<a name="featured-projects"></a>\n<p align="center">${themed('heading-projects','Featured Projects',350,base)}</p>\n${projectPager(page,pageCount,base)}\n${cards}`;
- if(page>0)return `<!-- GENERATED FILE. Edit data/profile.json or data/projects.json, then run npm run build. -->\n\n${gallery}\n`;
+export function renderReadme(p:Profile,projects:Project[]):string{
+ const base='assets/';
+ const cards=renderProjectTable(projects.filter(x=>x.featured),p.layout.projectsPerRow,base);
+ const gallery=`<p align="center">${themed('heading-projects','Featured Projects',350,base)}</p>\n${cards}`;
  const links=showLinks(p.links,base);
  return `<!-- GENERATED FILE. Edit data/profile.json or data/projects.json, then run npm run build. -->\n\n`+
  `<p align="center"><img src="${base}hero.webp" alt="Cozy pixel-art cabin at sunset. Sharon codes beside Winston, a cat, and a friendly AI robot." width="100%" /></p>\n\n`+
@@ -177,9 +152,6 @@ export function renderReadme(p:Profile,projects:Project[],page=0):string{
 export function outputs(profile:Profile,projects:Project[]):Map<string,string>{
  const files=new Map<string,string>();
  files.set('README.md',renderReadme(profile,projects));
- const count=Math.max(1,Math.ceil(projects.filter(p=>p.featured).length/profile.layout.projectsPerPage));
- for(let page=1;page<count;page++)files.set(`projects/page-${page+1}.md`,renderReadme(profile,projects,page));
- for(const name of ['pager-left','pager-right','pager-dot','pager-dot-active'])files.set(`assets/generated/${name}.svg`,pagerIconSvg(name));
  for(const dark of [false,true]){
   const theme=dark?'dark':'light';
   files.set(`assets/generated/identity-${theme}.svg`,identitySvg(profile,dark));

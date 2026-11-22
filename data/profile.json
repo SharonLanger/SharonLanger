@@ -2,7 +2,7 @@
   "name": "Sharon Langer",
   "headline": "Software engineer building AI infrastructure, agent systems, and developer tools.",
   "about": {
-    "description": "I explore practical AI systems — from agent runtimes and orchestration to developer tools that make it easier to build with AI.",
+    "description": "I explore practical AI systems \u2014 from agent runtimes and orchestration to developer tools that make it easier to build with AI.",
     "highlights": [
       "Build and share open-source tools",
       "Experiment with agent architectures",
@@ -11,7 +11,7 @@
   },
   "links": [
     {
-      "label": "Projects",
+      "label": "All projects",
       "icon": "github",
       "url": "https://github.com/SharonLanger?tab=repositories"
     },
@@ -74,7 +74,6 @@
     }
   ],
   "layout": {
-    "projectsPerRow": 2,
-    "projectsPerPage": 2
+    "projectsPerRow": 2
   }
 }

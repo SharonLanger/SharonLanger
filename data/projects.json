@@ -61,7 +61,7 @@
       "links": {
         "repo": "https://github.com/SharonLanger/repo-probe"
       },
-      "featured": true
+      "featured": false
     },
     {
       "id": "kafka-count-words",
@@ -76,7 +76,7 @@
       "links": {
         "repo": "https://github.com/SharonLanger/kafkaCountWords"
       },
-      "featured": true
+      "featured": false
     },
     {
       "id": "cache-server",
@@ -91,7 +91,7 @@
       "links": {
         "repo": "https://github.com/SharonLanger/cacheserver"
       },
-      "featured": true
+      "featured": false
     },
     {
       "id": "smart-polls-react",
@@ -106,7 +106,7 @@
       "links": {
         "repo": "https://github.com/SharonLanger/smart-polls-react"
       },
-      "featured": true
+      "featured": false
     },
     {
       "id": "telegram-poll-bot",
@@ -121,7 +121,7 @@
       "links": {
         "repo": "https://github.com/SharonLanger/TelegramPollBot"
       },
-      "featured": true
+      "featured": false
     },
     {
       "id": "smart-polls-backend",
@@ -136,7 +136,7 @@
       "links": {
         "repo": "https://github.com/SharonLanger/smart-polls-backend"
       },
-      "featured": true
+      "featured": false
     }
   ]
 }

@@ -27,27 +27,18 @@ test('actual project list starts in the requested order and uses verified links'
  assert.equal(projects.length,9);
  assert.ok(projects.every(p=>p.links.repo.startsWith('https://github.com/SharonLanger/')));
 });
-test('pagination uses one configurable page size and links every project once',()=>{
- const files=outputs(profile,projects);
- const pages=[files.get('README.md')!,...Array.from({length:4},(_,i)=>files.get(`projects/page-${i+2}.md`)!)];
- assert.ok(pages.every(Boolean));
- assert.match(pages[0],/href="projects\/page-2\.md#featured-projects"/);
- assert.match(pages[1],/href="\.\.\/README\.md#featured-projects"/);
- assert.match(pages[1],/src="\.\.\/assets\/generated\/system-one-harness\.svg"/);
- for(const page of pages.slice(1)){
-  assert.ok(!page.includes('hero.webp'));
-  assert.ok(!page.includes('identity-desktop'));
-  assert.ok(!page.includes('profile-info-desktop'));
-  assert.ok(!page.includes('footer.webp'));
+test('showcases only the three selected repositories on one page',()=>{
+ const files=outputs(profile,projects),readme=files.get('README.md')!;
+ assert.deepEqual(projects.filter(p=>p.featured).map(p=>p.id),['agent-playbook','claude-backstage','system-one-harness']);
+ assert.equal((readme.match(/aria-label="[^"]+ repository"/g)??[]).length,3);
+ for(const project of projects){
+  assert.equal(readme.includes(`href="${project.links.repo}"`),project.featured);
+  assert.equal(files.has(`assets/generated/${project.id}.svg`),project.featured);
  }
- pages.forEach((text,i)=>{
-  assert.equal((text.match(/aria-label="Page \d+ of 5/g)??[]).length,5);
-  assert.equal((text.match(/aria-label="[^"]+ repository"/g)??[]).length,i===4?1:2);
- });
- for(const project of projects)assert.equal(pages.filter(text=>text.includes(`href="${project.links.repo}"`)).length,1);
- const three=outputs({...profile,layout:{...profile.layout,projectsPerPage:3}},projects);
- assert.ok(three.has('projects/page-3.md'));
- assert.ok(!three.has('projects/page-4.md'));
+ assert.ok(!readme.includes('pager-'));
+ assert.ok(![...files.keys()].some(path=>path.startsWith('projects/')));
+ assert.match(readme,/aria-label="All projects"/);
+ assert.match(readme,/href="https:\/\/github.com\/SharonLanger\?tab=repositories"/);
 });
 test('mobile selects an identity without the portrait and retains full cards',()=>{
  const files=outputs(profile,projects),readme=files.get('README.md')!;
