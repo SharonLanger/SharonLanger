@@ -1,7 +1,8 @@
-import { readFileSync, mkdirSync, writeFileSync, existsSync } from 'node:fs';
+import { readFileSync, mkdirSync, writeFileSync, existsSync, readdirSync, unlinkSync } from 'node:fs';
 import { resolve, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { cardSvg, escapeXml } from './art.ts';
+import { pixelText, width, wrap } from './pixel.ts';
 
 export type SocialLink = { label:string; icon:string; url:string };
 export type Skill = { name:string; icon:string };
@@ -52,33 +53,63 @@ export function load():{profile:Profile;projects:Project[]}{
   validate(profile,projects);return {profile,projects};
 }
 function skillSvg(s:Skill):string{
-  const label=s.name, width=Math.max(116,Math.min(228,label.length*9+67));
-  return `<svg xmlns="http://www.w3.org/2000/svg" width="${width}" height="38" viewBox="0 0 ${width} 38" role="img" aria-label="${esc(label)}">`+
-    `<rect x="1" y="1" width="${width-2}" height="36" rx="11" fill="#263454" stroke="#7d82ba"/>`+
+  const label=s.name, badgeWidth=Math.ceil(Math.max(116,width(label,14)+67));
+  return `<svg xmlns="http://www.w3.org/2000/svg" width="${badgeWidth}" height="38" viewBox="0 0 ${badgeWidth} 38" role="img" aria-label="${esc(label)}">`+
+    `<rect x="0" y="0" width="${badgeWidth}" height="38" rx="8" fill="#263454"/>`+
     `<rect x="8" y="7" width="25" height="24" rx="5" fill="#416cb4"/>`+
-    `<text x="20.5" y="24" text-anchor="middle" fill="#fff" font-family="monospace" font-weight="bold" font-size="11">${esc(s.icon)}</text>`+
-    `<text x="43" y="24" fill="#f3f3fc" font-family="monospace" font-size="14">${esc(label)}</text></svg>`;
+    pixelText(11,24,s.icon,11,'#fff')+
+    pixelText(43,25,label,14,'#f3f3fc')+'</svg>';
 }
 export function renderProjectTable(items:Project[],columns=3):string{
   if(items.length===0)return '_More projects coming soon._';
   const rows:string[]=[];
+  const cardWidth=Math.floor(825/columns);
   for(let i=0;i<items.length;i+=columns){
     const section=items.slice(i,i+columns);
-    rows.push('<tr>');
+    const cards:string[]=[];
     for(const p of section){
-      const secondary=(['docs','demo'] as const).filter(key=>p.links[key]).map(key=>`<a href="${esc(p.links[key]!)}">${key==='docs'?'Docs':'Demo'}</a>`).join(' · ');
-      rows.push(`<td width="${Math.floor(100/columns)}%" valign="top" align="center"><a href="${esc(p.links.repo)}"><img src="assets/generated/${p.id}.svg" alt="${esc(p.name)} — ${esc(p.description)}" width="100%" /></a><br/><sub><a href="${esc(p.links.repo)}">Repository</a>${secondary?' · '+secondary:''}</sub></td>`);
+      cards.push(`<a href="${esc(p.links.repo)}" aria-label="${esc(p.name)} repository"><img src="assets/generated/${p.id}.svg" alt="${esc(p.name)} — ${esc(p.description)}" width="${cardWidth}" /></a>`);
     }
-    for(let empty=section.length;empty<columns;empty++)rows.push(`<td width="${Math.floor(100/columns)}%"></td>`);
-    rows.push('</tr>');
+    rows.push(`<p align="center">${cards.join(' ')}</p>`);
   }
-  return '<table>\n'+rows.join('\n')+'\n</table>';
+  return rows.join('\n');
 }
-function showLinks(links:SocialLink[]):string {return links.filter(l=>l.url!=='').map(l=>`<a href="${esc(l.url)}">${l.icon==='github'?'⌘':l.icon==='linkedin'?'in':l.icon==='book'?'▤':'✉'} ${esc(l.label)}</a>`).join(' &nbsp; · &nbsp; ');}
+function headingSvg(label:string,dark:boolean):string{
+ return `<svg xmlns="http://www.w3.org/2000/svg" width="350" height="47" viewBox="0 0 350 47" role="img" aria-label="${esc(label)}">${pixelText(4,32,label,24,dark?'#f5e7bf':'#614b22')}</svg>`;
+}
+function identitySvg(p:Profile,dark:boolean):string{
+ const subtitle=wrap(p.headline,16,334,6);
+ return `<svg xmlns="http://www.w3.org/2000/svg" width="350" height="${70+subtitle.length*25}" viewBox="0 0 350 ${70+subtitle.length*25}" role="img" aria-label="${esc(p.name)} — ${esc(p.headline)}">`+
+ pixelText((350-width(p.name,33))/2,40,p.name,33,dark?'#ffda86':'#694920')+
+ subtitle.map((line,i)=>pixelText((350-width(line,16))/2,69+i*25,line,16,dark?'#d3e5fb':'#263c60')).join('')+'</svg>';
+}
+function aboutSvg(p:Profile,dark:boolean):string{
+ const description=wrap(p.about.description,16,330,22);
+ const h=20+description.length*25;
+ return `<svg xmlns="http://www.w3.org/2000/svg" width="350" height="${h}" viewBox="0 0 350 ${h}" role="img" aria-label="${esc(p.about.description)}">`+
+ description.map((line,i)=>pixelText(4,24+i*25,line,16,dark?'#e0eaf7':'#253a59')).join('')+'</svg>';
+}
+function checklistSvg(p:Profile,dark:boolean):string{
+ const lines=p.about.highlights.flatMap(item=>wrap(item,16,308,6).map((line,i)=>({line,first:i===0})));
+ const h=20+lines.length*27;
+ return `<svg xmlns="http://www.w3.org/2000/svg" width="350" height="${h}" viewBox="0 0 350 ${h}" role="img" aria-label="${esc(p.about.highlights.join('; '))}">`+
+ lines.map((item,i)=>(item.first?`<path d="M14 ${16+i*27} l5 5 9 -11" fill="none" stroke="${dark?'#a7e0cc':'#176047'}" stroke-width="3"/>`:'')+
+ pixelText(38,25+i*27,item.line,16,dark?'#a7e0cc':'#176047')).join('')+'</svg>';
+}
+function socialSvg(link:SocialLink):string{
+ const label=link.label;const badgeWidth=Math.ceil(width(label,15)+32);
+ return `<svg xmlns="http://www.w3.org/2000/svg" width="${badgeWidth}" height="38" viewBox="0 0 ${badgeWidth} 38" role="img" aria-label="${esc(label)}"><rect width="${badgeWidth}" height="38" rx="7" fill="#243b57"/>${pixelText(16,25,label,15,'#aee5ff')}</svg>`;
+}
+function showLinks(links:SocialLink[]):string {return links.filter(l=>l.url!=='').map(l=>`<a href="${esc(l.url)}" aria-label="${esc(l.label)}"><img src="assets/generated/link-${slug(l.label)}.svg" alt="${esc(l.label)}" height="38" /></a>`).join(' ');}
+function themed(name:string,alt:string,w:number):string{
+ return `<picture><source media="(prefers-color-scheme: dark)" srcset="assets/generated/${name}-dark.svg" /><img src="assets/generated/${name}-light.svg" alt="${esc(alt)}" width="${w}" /></picture>`;
+}
 function renderAbout(p:Profile):string{
- const checks=p.about.highlights.map(c=>`<li>✅ ${esc(c)}</li>`).join('');
- const skills=p.skills.map(s=>`<img src="assets/generated/skill-${slug(s.name)}.svg" alt="${esc(s.name)}" height="29" />`).join(' ');
- return `<table>\n<tr>\n<td width="54%" valign="top">\n<h3>🌱 About</h3>\n<p>${esc(p.about.description)}</p>\n<ul>${checks}</ul>\n</td>\n<td width="46%" valign="top">\n<h3>🛠️ Tech &amp; Tools</h3>\n<p>${skills}</p>\n</td>\n</tr>\n</table>`;
+ const skills=p.skills.map(s=>`<img src="assets/generated/skill-${slug(s.name)}.svg" alt="${esc(s.name)}" height="38" />`).join(' ');
+ return `<p align="center">${themed('heading-about','About',350)}</p>\n`+
+ `<p align="center">${themed('about',p.about.description,350)} ${themed('checklist',p.about.highlights.join('; '),350)}</p>\n`+
+ `<p align="center">${themed('heading-tools','Tech and Tools',350)}</p>\n`+
+ `<p align="center">${skills}</p>`;
 }
 export const slug=(s:string)=>s.toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'');
 export function renderReadme(p:Profile,projects:Project[]):string{
@@ -86,15 +117,26 @@ export function renderReadme(p:Profile,projects:Project[]):string{
  const links=showLinks(p.links);
  return `<!-- GENERATED FILE. Edit data/profile.json or data/projects.json, then run npm run build. -->\n\n`+
  `<p align="center"><img src="assets/hero.webp" alt="Cozy pixel-art cabin at sunset. Sharon codes beside Winston, a cat, and a friendly AI robot." width="100%" /></p>\n\n`+
- `<table><tr><td width="116" align="center"><img src="assets/avatar.webp" alt="Pixel portrait of ${esc(p.name)}" width="95" /></td>`+
- `<td><h1>${esc(p.name)}</h1><p>${esc(p.headline)}</p>${links?`<p>${links}</p>`:''}</td></tr></table>\n\n`+
- `## 💻 Featured Projects\n\n${cards}\n\n`+renderAbout(p)+`\n\n`+
+ `<p align="center"><img src="assets/avatar.webp" alt="Full circular pixel portrait of ${esc(p.name)}" width="136" /></p>\n`+
+ `<p align="center">${themed('identity',p.name+' — '+p.headline,350)}</p>\n`+
+ (links?`<p align="center">${links}</p>\n`:'')+`\n`+
+ `<p align="center">${themed('heading-projects','Featured Projects',350)}</p>\n${cards}\n\n`+renderAbout(p)+`\n\n`+
  `<p align="center"><img src="assets/footer.webp" alt="Winston the dog and a sleeping cat resting in the grass" width="100%" /></p>\n\n`+
  `<!-- Generated with local TypeScript; see CONTRIBUTING.md for editing instructions. -->\n`;
 }
 export function outputs(profile:Profile,projects:Project[]):Map<string,string>{
  const files=new Map<string,string>();
  files.set('README.md',renderReadme(profile,projects));
+ for(const dark of [false,true]){
+  const theme=dark?'dark':'light';
+  files.set(`assets/generated/identity-${theme}.svg`,identitySvg(profile,dark));
+  files.set(`assets/generated/about-${theme}.svg`,aboutSvg(profile,dark));
+  files.set(`assets/generated/checklist-${theme}.svg`,checklistSvg(profile,dark));
+  files.set(`assets/generated/heading-projects-${theme}.svg`,headingSvg('Featured Projects',dark));
+  files.set(`assets/generated/heading-about-${theme}.svg`,headingSvg('About',dark));
+  files.set(`assets/generated/heading-tools-${theme}.svg`,headingSvg('Tech & Tools',dark));
+ }
+ for(const link of profile.links.filter(l=>l.url))files.set(`assets/generated/link-${slug(link.label)}.svg`,socialSvg(link));
  for(const skill of profile.skills)files.set(`assets/generated/skill-${slug(skill.name)}.svg`,skillSvg(skill));
  for(const project of projects.filter(p=>p.featured))files.set(`assets/generated/${project.id}.svg`,cardSvg(project));
  return files;
@@ -102,6 +144,13 @@ export function outputs(profile:Profile,projects:Project[]):Map<string,string>{
 export function run(check=false):void{
  const {profile,projects}=load();const files=outputs(profile,projects);
  let mismatches=0;
+ const generatedDir=resolve(root,'assets/generated');
+ if(existsSync(generatedDir))for(const name of readdirSync(generatedDir)){
+  if(name.endsWith('.svg')&&!files.has(`assets/generated/${name}`)){
+   if(check){console.error(`Obsolete generated asset: ${name}`);mismatches++;}
+   else unlinkSync(resolve(generatedDir,name));
+  }
+ }
  for(const [filename,contents] of files){const target=resolve(root,filename);
   if(check){if(!existsSync(target)||readFileSync(target,'utf8')!==contents){console.error(`Out of date: ${filename}`);mismatches++;}}
   else{mkdirSync(dirname(target),{recursive:true});writeFileSync(target,contents);}

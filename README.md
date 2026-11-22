@@ -2,31 +2,17 @@
 
 <p align="center"><img src="assets/hero.webp" alt="Cozy pixel-art cabin at sunset. Sharon codes beside Winston, a cat, and a friendly AI robot." width="100%" /></p>
 
-<table><tr><td width="116" align="center"><img src="assets/avatar.webp" alt="Pixel portrait of Sharon Langer" width="95" /></td><td><h1>Sharon Langer</h1><p>Software engineer building AI infrastructure, agent systems, and developer tools.</p><p><a href="https://github.com/SharonLanger?tab=repositories">⌘ Projects</a> &nbsp; · &nbsp; <a href="https://sharonlanger.hashnode.dev">▤ Blog (Hashnode)</a></p></td></tr></table>
+<p align="center"><img src="assets/avatar.webp" alt="Full circular pixel portrait of Sharon Langer" width="136" /></p>
+<p align="center"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/generated/identity-dark.svg" /><img src="assets/generated/identity-light.svg" alt="Sharon Langer — Software engineer building AI infrastructure, agent systems, and developer tools." width="350" /></picture></p>
+<p align="center"><a href="https://github.com/SharonLanger?tab=repositories" aria-label="Projects"><img src="assets/generated/link-projects.svg" alt="Projects" height="38" /></a> <a href="https://sharonlanger.hashnode.dev" aria-label="Blog (Hashnode)"><img src="assets/generated/link-blog-hashnode.svg" alt="Blog (Hashnode)" height="38" /></a></p>
 
-## 💻 Featured Projects
+<p align="center"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/generated/heading-projects-dark.svg" /><img src="assets/generated/heading-projects-light.svg" alt="Featured Projects" width="350" /></picture></p>
+<p align="center"><a href="https://github.com/SharonLanger/agent-playbook" aria-label="Agent Playbook repository"><img src="assets/generated/agent-playbook.svg" alt="Agent Playbook — Local-first agent workflows, orchestration, observability, and adapters." width="275" /></a> <a href="https://github.com/SharonLanger/system-one-harness" aria-label="System One Harness repository"><img src="assets/generated/system-one-harness.svg" alt="System One Harness — Experiments with fast AI decision layers and agent runtime behavior." width="275" /></a> <a href="https://github.com/SharonLanger/claude-backstage" aria-label="Claude Backstage repository"><img src="assets/generated/claude-backstage.svg" alt="Claude Backstage — Developer tooling and workflow visibility for Claude Code." width="275" /></a></p>
 
-<table>
-<tr>
-<td width="33%" valign="top" align="center"><a href="https://github.com/SharonLanger/agent-playbook"><img src="assets/generated/agent-playbook.svg" alt="Agent Playbook — Local-first agent workflows, orchestration, observability, and adapters." width="100%" /></a><br/><sub><a href="https://github.com/SharonLanger/agent-playbook">Repository</a></sub></td>
-<td width="33%" valign="top" align="center"><a href="https://github.com/SharonLanger/system-one-harness"><img src="assets/generated/system-one-harness.svg" alt="System One Harness — Experiments with fast AI decision layers and agent runtime behavior." width="100%" /></a><br/><sub><a href="https://github.com/SharonLanger/system-one-harness">Repository</a></sub></td>
-<td width="33%" valign="top" align="center"><a href="https://github.com/SharonLanger/claude-backstage"><img src="assets/generated/claude-backstage.svg" alt="Claude Backstage — Developer tooling and workflow visibility for Claude Code." width="100%" /></a><br/><sub><a href="https://github.com/SharonLanger/claude-backstage">Repository</a></sub></td>
-</tr>
-</table>
-
-<table>
-<tr>
-<td width="54%" valign="top">
-<h3>🌱 About</h3>
-<p>I explore practical AI systems — from agent runtimes and orchestration to developer tools that make it easier to build with AI.</p>
-<ul><li>✅ Build and share open-source tools</li><li>✅ Experiment with agent architectures</li><li>✅ Turn ideas into usable, developer-friendly tools</li></ul>
-</td>
-<td width="46%" valign="top">
-<h3>🛠️ Tech &amp; Tools</h3>
-<p><img src="assets/generated/skill-typescript.svg" alt="TypeScript" height="29" /> <img src="assets/generated/skill-python.svg" alt="Python" height="29" /> <img src="assets/generated/skill-node-js.svg" alt="Node.js" height="29" /> <img src="assets/generated/skill-docker.svg" alt="Docker" height="29" /> <img src="assets/generated/skill-ai-llms.svg" alt="AI / LLMs" height="29" /> <img src="assets/generated/skill-github.svg" alt="GitHub" height="29" /> <img src="assets/generated/skill-agents.svg" alt="Agents" height="29" /> <img src="assets/generated/skill-orchestration.svg" alt="Orchestration" height="29" /> <img src="assets/generated/skill-observability.svg" alt="Observability" height="29" /> <img src="assets/generated/skill-dev-tools.svg" alt="Dev Tools" height="29" /></p>
-</td>
-</tr>
-</table>
+<p align="center"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/generated/heading-about-dark.svg" /><img src="assets/generated/heading-about-light.svg" alt="About" width="350" /></picture></p>
+<p align="center"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/generated/about-dark.svg" /><img src="assets/generated/about-light.svg" alt="I explore practical AI systems — from agent runtimes and orchestration to developer tools that make it easier to build with AI." width="350" /></picture> <picture><source media="(prefers-color-scheme: dark)" srcset="assets/generated/checklist-dark.svg" /><img src="assets/generated/checklist-light.svg" alt="Build and share open-source tools; Experiment with agent architectures; Turn ideas into usable, developer-friendly tools" width="350" /></picture></p>
+<p align="center"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/generated/heading-tools-dark.svg" /><img src="assets/generated/heading-tools-light.svg" alt="Tech and Tools" width="350" /></picture></p>
+<p align="center"><img src="assets/generated/skill-typescript.svg" alt="TypeScript" height="38" /> <img src="assets/generated/skill-python.svg" alt="Python" height="38" /> <img src="assets/generated/skill-node-js.svg" alt="Node.js" height="38" /> <img src="assets/generated/skill-docker.svg" alt="Docker" height="38" /> <img src="assets/generated/skill-ai-llms.svg" alt="AI / LLMs" height="38" /> <img src="assets/generated/skill-github.svg" alt="GitHub" height="38" /> <img src="assets/generated/skill-agents.svg" alt="Agents" height="38" /> <img src="assets/generated/skill-orchestration.svg" alt="Orchestration" height="38" /> <img src="assets/generated/skill-observability.svg" alt="Observability" height="38" /> <img src="assets/generated/skill-dev-tools.svg" alt="Dev Tools" height="38" /></p>
 
 <p align="center"><img src="assets/footer.webp" alt="Winston the dog and a sleeping cat resting in the grass" width="100%" /></p>
 
