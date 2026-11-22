@@ -117,7 +117,7 @@ export function renderReadme(p:Profile,projects:Project[]):string{
  const links=showLinks(p.links);
  return `<!-- GENERATED FILE. Edit data/profile.json or data/projects.json, then run npm run build. -->\n\n`+
  `<p align="center"><img src="assets/hero.webp" alt="Cozy pixel-art cabin at sunset. Sharon codes beside Winston, a cat, and a friendly AI robot." width="100%" /></p>\n\n`+
- `<p align="center"><img src="assets/avatar.webp" alt="Full circular pixel portrait of ${esc(p.name)}" width="136" /></p>\n`+
+ `<p align="center"><img src="assets/avatar.webp" alt="Full circular pixel portrait of ${esc(p.name)}" width="168" /></p>\n`+
  `<p align="center">${themed('identity',p.name+' — '+p.headline,350)}</p>\n`+
  (links?`<p align="center">${links}</p>\n`:'')+`\n`+
  `<p align="center">${themed('heading-projects','Featured Projects',350)}</p>\n${cards}\n\n`+renderAbout(p)+`\n\n`+

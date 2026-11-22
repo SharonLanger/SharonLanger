@@ -2,7 +2,7 @@
 
 <p align="center"><img src="assets/hero.webp" alt="Cozy pixel-art cabin at sunset. Sharon codes beside Winston, a cat, and a friendly AI robot." width="100%" /></p>
 
-<p align="center"><img src="assets/avatar.webp" alt="Full circular pixel portrait of Sharon Langer" width="136" /></p>
+<p align="center"><img src="assets/avatar.webp" alt="Full circular pixel portrait of Sharon Langer" width="168" /></p>
 <p align="center"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/generated/identity-dark.svg" /><img src="assets/generated/identity-light.svg" alt="Sharon Langer — Software engineer building AI infrastructure, agent systems, and developer tools." width="350" /></picture></p>
 <p align="center"><a href="https://github.com/SharonLanger?tab=repositories" aria-label="Projects"><img src="assets/generated/link-projects.svg" alt="Projects" height="38" /></a> <a href="https://sharonlanger.hashnode.dev" aria-label="Blog (Hashnode)"><img src="assets/generated/link-blog-hashnode.svg" alt="Blog (Hashnode)" height="38" /></a></p>
 
