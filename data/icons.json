@@ -1,0 +1,171 @@
+{
+  "agent-playbook": {
+    "label": "Agent Playbook",
+    "file": "agent-playbook.svg"
+  },
+  "agents": {
+    "label": "Agents",
+    "file": "agents.svg"
+  },
+  "ai": {
+    "label": "AI",
+    "file": "ai.svg"
+  },
+  "ai-llms": {
+    "label": "AI / LLMs",
+    "file": "ai.svg"
+  },
+  "backend": {
+    "label": "Backend",
+    "file": "backend.svg"
+  },
+  "book": {
+    "label": "Book",
+    "file": "book.svg"
+  },
+  "bot": {
+    "label": "Bot",
+    "file": "bot.svg"
+  },
+  "check": {
+    "label": "Check mark",
+    "file": "check.svg"
+  },
+  "claude": {
+    "label": "Claude",
+    "file": "claude.svg"
+  },
+  "claude-backstage": {
+    "label": "Claude Backstage",
+    "file": "claude-backstage.svg"
+  },
+  "code-metrics": {
+    "label": "Code Metrics",
+    "file": "code-metrics.svg"
+  },
+  "codex": {
+    "label": "Codex",
+    "file": "codex.svg"
+  },
+  "concurrency": {
+    "label": "Concurrency",
+    "file": "concurrency.svg"
+  },
+  "crewai": {
+    "label": "CrewAI",
+    "file": "crewai.svg"
+  },
+  "dev-tools": {
+    "label": "Dev Tools",
+    "file": "dev-tools.svg"
+  },
+  "docker": {
+    "label": "Docker",
+    "file": "docker.svg",
+    "iconOnly": true
+  },
+  "dx": {
+    "label": "DX",
+    "file": "dx.svg"
+  },
+  "experiments": {
+    "label": "Experiments",
+    "file": "experiments.svg"
+  },
+  "flask": {
+    "label": "Flask",
+    "file": "flask.svg"
+  },
+  "github": {
+    "label": "GitHub",
+    "file": "github.svg",
+    "iconOnly": true
+  },
+  "java": {
+    "label": "Java",
+    "file": "java.svg"
+  },
+  "kafka": {
+    "label": "Kafka",
+    "file": "kafka.svg"
+  },
+  "langfuse": {
+    "label": "Langfuse",
+    "file": "langfuse.svg"
+  },
+  "linkedin": {
+    "label": "LinkedIn",
+    "file": "linkedin.svg"
+  },
+  "mail": {
+    "label": "Mail",
+    "file": "mail.svg"
+  },
+  "mlx": {
+    "label": "MLX",
+    "file": "mlx.svg"
+  },
+  "node-js": {
+    "label": "Node.js",
+    "file": "node-js.svg",
+    "iconOnly": true
+  },
+  "observability": {
+    "label": "Observability",
+    "file": "observability.svg"
+  },
+  "orchestration": {
+    "label": "Orchestration",
+    "file": "orchestration.svg"
+  },
+  "polls": {
+    "label": "Polls",
+    "file": "polls.svg"
+  },
+  "postgresql": {
+    "label": "PostgreSQL",
+    "file": "postgresql.svg"
+  },
+  "project": {
+    "label": "Project",
+    "file": "project.svg"
+  },
+  "python": {
+    "label": "Python",
+    "file": "python.svg",
+    "iconOnly": true
+  },
+  "react": {
+    "label": "React",
+    "file": "react.svg"
+  },
+  "rest": {
+    "label": "REST",
+    "file": "rest.svg"
+  },
+  "spring": {
+    "label": "Spring",
+    "file": "spring.svg"
+  },
+  "spring-boot": {
+    "label": "Spring Boot",
+    "file": "spring.svg"
+  },
+  "system-one-harness": {
+    "label": "System One Harness",
+    "file": "system-one-harness.svg"
+  },
+  "telegram": {
+    "label": "Telegram",
+    "file": "telegram.svg"
+  },
+  "typescript": {
+    "label": "TypeScript",
+    "file": "typescript.svg",
+    "iconOnly": true
+  },
+  "ui": {
+    "label": "UI",
+    "file": "ui.svg"
+  }
+}
