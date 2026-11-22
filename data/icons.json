@@ -51,6 +51,10 @@
     "label": "Concurrency",
     "file": "concurrency.svg"
   },
+  "crewai": {
+    "label": "CrewAI",
+    "file": "crewai.svg"
+  },
   "dev-tools": {
     "label": "Dev Tools",
     "file": "dev-tools.svg"
@@ -84,6 +88,10 @@
   "kafka": {
     "label": "Kafka",
     "file": "kafka.svg"
+  },
+  "langfuse": {
+    "label": "Langfuse",
+    "file": "langfuse.svg"
   },
   "linkedin": {
     "label": "LinkedIn",

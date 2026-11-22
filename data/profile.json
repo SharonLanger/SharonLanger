@@ -42,6 +42,8 @@
     "spring-boot",
     "codex",
     "claude",
+    "crewai",
+    "langfuse",
     "ai-llms",
     "agents",
     "observability",
