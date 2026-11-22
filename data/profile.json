@@ -10,22 +10,70 @@
     ]
   },
   "links": [
-    { "label": "Projects", "icon": "github", "url": "https://github.com/SharonLanger?tab=repositories" },
-    { "label": "LinkedIn", "icon": "linkedin", "url": "" },
-    { "label": "Blog (Hashnode)", "icon": "book", "url": "" },
-    { "label": "Contact", "icon": "mail", "url": "" }
+    {
+      "label": "Projects",
+      "icon": "github",
+      "url": "https://github.com/SharonLanger?tab=repositories"
+    },
+    {
+      "label": "LinkedIn",
+      "icon": "linkedin",
+      "url": ""
+    },
+    {
+      "label": "Blog (Hashnode)",
+      "icon": "book",
+      "url": "https://sharonlanger.hashnode.dev"
+    },
+    {
+      "label": "Contact",
+      "icon": "mail",
+      "url": ""
+    }
   ],
   "skills": [
-    { "name": "TypeScript", "icon": "TS" },
-    { "name": "Python", "icon": "Py" },
-    { "name": "Node.js", "icon": "JS" },
-    { "name": "Docker", "icon": "D" },
-    { "name": "AI / LLMs", "icon": "AI" },
-    { "name": "GitHub", "icon": "GH" },
-    { "name": "Agents", "icon": "AG" },
-    { "name": "Orchestration", "icon": "OR" },
-    { "name": "Observability", "icon": "OB" },
-    { "name": "Dev Tools", "icon": "DX" }
+    {
+      "name": "TypeScript",
+      "icon": "TS"
+    },
+    {
+      "name": "Python",
+      "icon": "Py"
+    },
+    {
+      "name": "Node.js",
+      "icon": "JS"
+    },
+    {
+      "name": "Docker",
+      "icon": "D"
+    },
+    {
+      "name": "AI / LLMs",
+      "icon": "AI"
+    },
+    {
+      "name": "GitHub",
+      "icon": "GH"
+    },
+    {
+      "name": "Agents",
+      "icon": "AG"
+    },
+    {
+      "name": "Orchestration",
+      "icon": "OR"
+    },
+    {
+      "name": "Observability",
+      "icon": "OB"
+    },
+    {
+      "name": "Dev Tools",
+      "icon": "DX"
+    }
   ],
-  "layout": { "projectsPerRow": 3 }
+  "layout": {
+    "projectsPerRow": 3
+  }
 }

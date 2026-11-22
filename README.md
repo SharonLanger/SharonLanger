@@ -2,7 +2,7 @@
 
 <p align="center"><img src="assets/hero.webp" alt="Cozy pixel-art cabin at sunset. Sharon codes beside Winston, a cat, and a friendly AI robot." width="100%" /></p>
 
-<table><tr><td width="116" align="center"><img src="assets/avatar.webp" alt="Pixel portrait of Sharon Langer" width="95" /></td><td><h1>Sharon Langer</h1><p>Software engineer building AI infrastructure, agent systems, and developer tools.</p><p><a href="https://github.com/SharonLanger?tab=repositories">⌘ Projects</a></p></td></tr></table>
+<table><tr><td width="116" align="center"><img src="assets/avatar.webp" alt="Pixel portrait of Sharon Langer" width="95" /></td><td><h1>Sharon Langer</h1><p>Software engineer building AI infrastructure, agent systems, and developer tools.</p><p><a href="https://github.com/SharonLanger?tab=repositories">⌘ Projects</a> &nbsp; · &nbsp; <a href="https://sharonlanger.hashnode.dev">▤ Blog (Hashnode)</a></p></td></tr></table>
 
 ## 💻 Featured Projects
 
