@@ -1,0 +1,13 @@
+{
+  "name": "sharonlanger-github-profile",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "engines": { "node": ">=22.6" },
+  "scripts": {
+    "build": "node --experimental-strip-types scripts/build.ts",
+    "check": "node --experimental-strip-types scripts/build.ts --check",
+    "test": "node --experimental-strip-types --test scripts/build.test.ts",
+    "preview": "npm run build && node --experimental-strip-types scripts/preview.ts"
+  }
+}
