@@ -43,6 +43,10 @@
     "label": "Code Metrics",
     "file": "code-metrics.svg"
   },
+  "codex": {
+    "label": "Codex",
+    "file": "codex.svg"
+  },
   "concurrency": {
     "label": "Concurrency",
     "file": "concurrency.svg"
@@ -133,6 +137,10 @@
   },
   "spring": {
     "label": "Spring",
+    "file": "spring.svg"
+  },
+  "spring-boot": {
+    "label": "Spring Boot",
     "file": "spring.svg"
   },
   "system-one-harness": {
