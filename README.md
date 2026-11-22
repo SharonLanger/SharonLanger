@@ -1,16 +1,16 @@
-## Hi there 👋
+<!-- GENERATED FILE. Edit data/profile.json or data/projects.json, then run npm run build. -->
 
-<!--
-**SharonLanger/SharonLanger** is a ✨ _special_ ✨ repository because its `README.md` (this file) appears on your GitHub profile.
+<p align="center"><img src="assets/hero.webp" alt="Cozy pixel-art cabin at sunset. Sharon codes beside Winston, a cat, and a friendly AI robot." width="100%" /></p>
 
-Here are some ideas to get you started:
+<p align="center"><picture><source media="(max-width: 600px) and (prefers-color-scheme: dark)" srcset="assets/generated/identity-dark.svg" /><source media="(max-width: 600px)" srcset="assets/generated/identity-light.svg" /><source media="(prefers-color-scheme: dark)" srcset="assets/generated/identity-desktop-dark.svg" /><img src="assets/generated/identity-desktop-light.svg" alt="Sharon Langer — Software engineer building AI infrastructure, agent systems, and developer tools." width="790" /></picture></p>
+<p align="center"><a href="https://github.com/SharonLanger?tab=repositories" aria-label="All projects"><img src="assets/generated/link-all-projects.svg" alt="All projects" height="38" /></a> <a href="https://sharonlanger.hashnode.dev" aria-label="Blog"><img src="assets/generated/link-blog.svg" alt="Blog" height="38" /></a></p>
 
-- 🔭 I’m currently working on ...
-- 🌱 I’m currently learning ...
-- 👯 I’m looking to collaborate on ...
-- 🤔 I’m looking for help with ...
-- 💬 Ask me about ...
-- 📫 How to reach me: ...
-- 😄 Pronouns: ...
-- ⚡ Fun fact: ...
--->
+<p align="center"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/generated/heading-projects-dark.svg" /><img src="assets/generated/heading-projects-light.svg" alt="Featured Projects" width="350" /></picture></p>
+<p align="center"><a href="https://github.com/SharonLanger/agent-playbook" aria-label="Agent Playbook repository"><img src="assets/generated/agent-playbook.svg" alt="Agent Playbook — Local-first agent workflows, orchestration, observability, and adapters." width="410" /></a> &nbsp;&nbsp; <a href="https://github.com/SharonLanger/claude-backstage" aria-label="Claude Backstage repository"><img src="assets/generated/claude-backstage.svg" alt="Claude Backstage — Developer tooling and workflow visibility for Claude Code." width="410" /></a></p>
+<p align="center"><a href="https://github.com/SharonLanger/system-one-harness" aria-label="System One Harness repository"><img src="assets/generated/system-one-harness.svg" alt="System One Harness — Experiments with fast AI decision layers and agent runtime behavior." width="410" /></a></p>
+
+<p align="center"><picture><source media="(max-width: 600px) and (prefers-color-scheme: dark)" srcset="assets/generated/profile-info-mobile-dark.svg" /><source media="(max-width: 600px)" srcset="assets/generated/profile-info-mobile-light.svg" /><source media="(prefers-color-scheme: dark)" srcset="assets/generated/profile-info-desktop-dark.svg" /><img src="assets/generated/profile-info-desktop-light.svg" alt="About: I explore practical AI systems — from agent runtimes and orchestration to developer tools that make it easier to build with AI.; Build and share open-source tools; Experiment with agent architectures; Turn ideas into usable, developer-friendly tools. Tech and Tools: TypeScript, Python, Node.js, Docker, AI / LLMs, GitHub, Agents, Orchestration, Observability, Dev Tools" width="790" /></picture></p>
+
+<p align="center"><img src="assets/footer.webp" alt="Winston the dog and a sleeping cat resting in the grass" width="100%" /></p>
+
+<!-- Generated with local TypeScript; see CONTRIBUTING.md for editing instructions. -->

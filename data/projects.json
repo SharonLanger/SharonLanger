@@ -1,0 +1,142 @@
+{
+  "projects": [
+    {
+      "id": "agent-playbook",
+      "name": "Agent Playbook",
+      "icon": "bot",
+      "description": "Local-first agent workflows, orchestration, observability, and adapters.",
+      "tags": [
+        "Python",
+        "Agents",
+        "Orchestration"
+      ],
+      "links": {
+        "repo": "https://github.com/SharonLanger/agent-playbook",
+        "docs": ""
+      },
+      "featured": true
+    },
+    {
+      "id": "claude-backstage",
+      "name": "Claude Backstage",
+      "icon": "layers",
+      "description": "Developer tooling and workflow visibility for Claude Code.",
+      "tags": [
+        "TypeScript",
+        "Claude",
+        "DX"
+      ],
+      "links": {
+        "repo": "https://github.com/SharonLanger/claude-backstage",
+        "docs": ""
+      },
+      "featured": true
+    },
+    {
+      "id": "system-one-harness",
+      "name": "System One Harness",
+      "icon": "bolt",
+      "description": "Experiments with fast AI decision layers and agent runtime behavior.",
+      "tags": [
+        "AI",
+        "MLX",
+        "Experiments"
+      ],
+      "links": {
+        "repo": "https://github.com/SharonLanger/system-one-harness",
+        "docs": ""
+      },
+      "featured": true
+    },
+    {
+      "id": "repo-probe",
+      "name": "Repo Probe",
+      "icon": "layers",
+      "description": "Maps codebase metrics by folder and derives bottom-up insights.",
+      "tags": [
+        "TypeScript",
+        "Code Metrics",
+        "Dev Tools"
+      ],
+      "links": {
+        "repo": "https://github.com/SharonLanger/repo-probe"
+      },
+      "featured": false
+    },
+    {
+      "id": "kafka-count-words",
+      "name": "Kafka Count Words",
+      "icon": "bolt",
+      "description": "Kafka-based asynchronous word counting with topics and parallel consumers.",
+      "tags": [
+        "Java",
+        "Kafka",
+        "Concurrency"
+      ],
+      "links": {
+        "repo": "https://github.com/SharonLanger/kafkaCountWords"
+      },
+      "featured": false
+    },
+    {
+      "id": "cache-server",
+      "name": "Cache Server",
+      "icon": "layers",
+      "description": "Spring Boot service for cached numbers, asynchronous tasks, and REST endpoints.",
+      "tags": [
+        "Java",
+        "Spring",
+        "REST"
+      ],
+      "links": {
+        "repo": "https://github.com/SharonLanger/cacheserver"
+      },
+      "featured": false
+    },
+    {
+      "id": "smart-polls-react",
+      "name": "Smart Polls UI",
+      "icon": "layers",
+      "description": "React interface for the Smart Polls app, connected to its backend.",
+      "tags": [
+        "React",
+        "UI",
+        "Polls"
+      ],
+      "links": {
+        "repo": "https://github.com/SharonLanger/smart-polls-react"
+      },
+      "featured": false
+    },
+    {
+      "id": "telegram-poll-bot",
+      "name": "Telegram Poll Bot",
+      "icon": "bot",
+      "description": "Telegram bot integration for creating and sharing Smart Polls.",
+      "tags": [
+        "Telegram",
+        "Bot",
+        "Polls"
+      ],
+      "links": {
+        "repo": "https://github.com/SharonLanger/TelegramPollBot"
+      },
+      "featured": false
+    },
+    {
+      "id": "smart-polls-backend",
+      "name": "Smart Polls Backend",
+      "icon": "flask",
+      "description": "Backend microservice for Smart Polls with PostgreSQL and Telegram bot integration.",
+      "tags": [
+        "Backend",
+        "PostgreSQL",
+        "Telegram"
+      ],
+      "links": {
+        "repo": "https://github.com/SharonLanger/smart-polls-backend"
+      },
+      "featured": false
+    }
+  ]
+}
