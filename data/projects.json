@@ -5,8 +5,15 @@
       "name": "Agent Playbook",
       "icon": "bot",
       "description": "Local-first agent workflows, orchestration, observability, and adapters.",
-      "tags": ["Python", "Agents", "Orchestration"],
-      "links": { "repo": "https://github.com/SharonLanger/agent-playbook", "docs": "" },
+      "tags": [
+        "Python",
+        "Agents",
+        "Orchestration"
+      ],
+      "links": {
+        "repo": "https://github.com/SharonLanger/agent-playbook",
+        "docs": ""
+      },
       "featured": true
     },
     {
@@ -14,8 +21,15 @@
       "name": "System One Harness",
       "icon": "bolt",
       "description": "Experiments with fast AI decision layers and agent runtime behavior.",
-      "tags": ["AI", "MLX", "Experiments"],
-      "links": { "repo": "https://github.com/SharonLanger/system-one-harness", "docs": "" },
+      "tags": [
+        "AI",
+        "MLX",
+        "Experiments"
+      ],
+      "links": {
+        "repo": "https://github.com/SharonLanger/system-one-harness",
+        "docs": ""
+      },
       "featured": true
     },
     {
@@ -23,18 +37,16 @@
       "name": "Claude Backstage",
       "icon": "layers",
       "description": "Developer tooling and workflow visibility for Claude Code.",
-      "tags": ["TypeScript", "Claude", "DX"],
-      "links": { "repo": "https://github.com/SharonLanger/claude-backstage", "docs": "" },
+      "tags": [
+        "TypeScript",
+        "Claude",
+        "DX"
+      ],
+      "links": {
+        "repo": "https://github.com/SharonLanger/claude-backstage",
+        "docs": ""
+      },
       "featured": true
-    },
-    {
-      "id": "system-one-experiments",
-      "name": "System One Experiments",
-      "icon": "flask",
-      "description": "Experimental probes and evaluations for fast agent decisions.",
-      "tags": ["AI", "Research", "Eval"],
-      "links": { "repo": "https://github.com/SharonLanger/system-one-experiments", "docs": "" },
-      "featured": false
     }
   ]
 }
