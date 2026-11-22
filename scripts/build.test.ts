@@ -27,6 +27,22 @@ test('actual project list starts in the requested order and uses verified links'
  assert.equal(projects.length,9);
  assert.ok(projects.every(p=>p.links.repo.startsWith('https://github.com/SharonLanger/')));
 });
+test('pagination uses one configurable page size and links every project once',()=>{
+ const files=outputs(profile,projects);
+ const pages=[files.get('README.md')!,...Array.from({length:4},(_,i)=>files.get(`projects/page-${i+2}.md`)!)];
+ assert.ok(pages.every(Boolean));
+ assert.match(pages[0],/href="projects\/page-2\.md#featured-projects"/);
+ assert.match(pages[1],/href="\.\.\/README\.md#featured-projects"/);
+ assert.match(pages[1],/src="\.\.\/assets\/generated\/system-one-harness\.svg"/);
+ pages.forEach((text,i)=>{
+  assert.equal((text.match(/aria-label="Page \d+ of 5/g)??[]).length,5);
+  assert.equal((text.match(/aria-label="[^"]+ repository"/g)??[]).length,i===4?1:2);
+ });
+ for(const project of projects)assert.equal(pages.filter(text=>text.includes(`href="${project.links.repo}"`)).length,1);
+ const three=outputs({...profile,layout:{...profile.layout,projectsPerPage:3}},projects);
+ assert.ok(three.has('projects/page-3.md'));
+ assert.ok(!three.has('projects/page-4.md'));
+});
 test('mobile selects an identity without the portrait and retains full cards',()=>{
  const files=outputs(profile,projects),readme=files.get('README.md')!;
  assert.match(readme,/media="\(max-width: 600px\)" srcset="assets\/generated\/identity-light.svg"/);

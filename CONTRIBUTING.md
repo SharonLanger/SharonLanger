@@ -1,12 +1,12 @@
 # Editing your profile
 
-Edit `data/profile.json` for your name, headline, About text, checklist, social links, skill names/icons, and `layout.projectsPerRow` (1–4). Edit `data/projects.json` to add or reorder projects. Set `featured` to `true` to display a project. One JSON object plus regeneration is enough; do not edit the generated README or SVGs by hand.
+Edit `data/profile.json` for your name, headline, About text, checklist, social links, skill names/icons, `layout.projectsPerPage` (1–12), and `layout.projectsPerRow` (1–4). Edit `data/projects.json` to add or reorder projects. Set `featured` to `true` to display a project. One JSON object plus regeneration is enough; do not edit the generated README, project pages, or SVGs by hand.
 
 Requires Node.js 22.6 or newer. No `npm install` or external runtime dependencies are needed.
 
 ```bash
-npm run build    # regenerate README and SVGs; remove obsolete generated SVGs
-npm run test     # validate the config and rows with 3, 4, 5, and 6 projects
+npm run build    # regenerate README, project pages and SVGs; remove obsolete generated files
+npm run test     # validate config, links, pagination, and rows with 3–6 projects
 npm run check    # verify all generated files, including removal of obsolete ones
 npm run preview  # render the actual generated markup in .profile-preview/index.html
 ```
@@ -17,7 +17,7 @@ Each project image is one link to its repository. Optional `docs` and `demo` URL
 
 ## GitHub rendering
 
-GitHub sanitizes CSS and JavaScript, so layout uses linked images in borderless paragraphs. The default is two full cards per desktop row; the fixed-width cards wrap to one per narrow row with their descriptions and tags still visible. All projects appear in order without disclosure controls. On narrow screens GitHub selects an identity without the portrait and a stacked About → checklist → Tech & Tools illustration. Wider screens put the portrait beside the name and Tech & Tools to the right of About. A horizontal swipe carousel with working side arrows and active-position dots requires a separate web page; it cannot run inside a GitHub README. The light and dark text assets use `<picture>` and `prefers-color-scheme`. Exact breakpoints still depend on the viewer viewport. The local preview displays the generated markup but is not a replacement for the GitHub-rendered PR README.
+GitHub sanitizes CSS and JavaScript. The arrows and dots therefore link to generated Markdown pages (`README.md`, then `projects/page-2.md`, etc.); clicking changes the URL and shows the next group, rather than animating cards in place. `projectsPerPage: 2` shows two complete cards per page, stacked on narrow screens and side by side when there is room. `projectsPerRow` limits the number of cards in a wide row if the page size changes. The selected dot reflects the current page, and the arrows wrap around. All featured projects appear in JSON order. On narrow screens GitHub selects an identity without the portrait and a stacked About → checklist → Tech & Tools illustration. Wider screens put the portrait beside the name and Tech & Tools to the right of About. The light and dark text assets use `<picture>` and `prefers-color-scheme`. Exact wrapping depends on the viewer viewport. The local preview displays page one of the generated markup; use the GitHub-rendered PR to inspect the full navigation.
 
 SVG outline lettering stays visually consistent on different machines. Its letters are not selectable like ordinary HTML text; the README supplies descriptive `alt` text and meaningful link labels for accessibility and its source retains the searchable wording. The optional project links are not interactive inside a card image; the whole image navigates to the repository.
 

@@ -10,7 +10,7 @@ export type Profile = {
   name:string; headline:string;
   about:{description:string;highlights:string[]};
   links:SocialLink[]; skills:Skill[];
-  layout:{projectsPerRow:number};
+  layout:{projectsPerRow:number;projectsPerPage:number};
 };
 export type Project = {
   id:string; name:string;icon:string;description:string;tags:string[];
@@ -32,6 +32,7 @@ export function validate(profile:Profile, projects:Project[]):void{
   assert(Array.isArray(profile.links),'links must be an array');
   profile.links.forEach((l,i)=>{requireText(l.label,`link label ${i}`,40);requireText(l.icon,`link icon ${i}`,30);validateOptionalLink(l.url,`link ${i}`);});
   assert(Number.isInteger(profile.layout.projectsPerRow)&&profile.layout.projectsPerRow>=1&&profile.layout.projectsPerRow<=4,'layout.projectsPerRow must be 1-4');
+  assert(Number.isInteger(profile.layout.projectsPerPage)&&profile.layout.projectsPerPage>=1&&profile.layout.projectsPerPage<=12,'layout.projectsPerPage must be 1-12');
   assert(Array.isArray(projects),'projects must be an array');
   const ids=new Set<string>();
   for(const [i,p] of projects.entries()){
@@ -52,13 +53,13 @@ export function load():{profile:Profile;projects:Project[]}{
   const projects=(JSON.parse(readFileSync(resolve(root,'data/projects.json'),'utf8')) as {projects:Project[]}).projects;
   validate(profile,projects);return {profile,projects};
 }
-export function renderProjectTable(items:Project[],columns=3):string{
+export function renderProjectTable(items:Project[],columns=3,assetPrefix='assets/'):string{
   if(items.length===0)return '_More projects coming soon._';
   const rows:string[]=[];
   const cardWidth=Math.floor(820/columns);
   for(let index=0;index<items.length;index+=columns){
     const cards=items.slice(index,index+columns).map(p=>
-      `<a href="${esc(p.links.repo)}" aria-label="${esc(p.name)} repository"><img src="assets/generated/${p.id}.svg" alt="${esc(p.name)} — ${esc(p.description)}" width="${cardWidth}" /></a>`);
+      `<a href="${esc(p.links.repo)}" aria-label="${esc(p.name)} repository"><img src="${assetPrefix}generated/${p.id}.svg" alt="${esc(p.name)} — ${esc(p.description)}" width="${cardWidth}" /></a>`);
     rows.push(`<p align="center">${cards.join(' &nbsp;&nbsp; ')}</p>`);
   }
   return rows.join('\n');
@@ -116,40 +117,67 @@ function socialSvg(link:SocialLink):string{
  link.icon==='mail'?'<rect x="13" y="12" width="26" height="19" rx="2" fill="none" stroke="#95bdf1" stroke-width="2"/><path d="m14 14 12 9 12 -9" fill="none" stroke="#95bdf1" stroke-width="2"/>':pixelText(14,27,'in',16,'#95bdf1');
  return `<svg xmlns="http://www.w3.org/2000/svg" width="${badgeWidth}" height="38" viewBox="0 0 ${badgeWidth} 38" role="img" aria-label="${esc(label)}"><rect width="${badgeWidth}" height="38" rx="7" fill="#243b57"/>${icon}${pixelText(46,25,label,15,'#aee5ff')}</svg>`;
 }
-function showLinks(links:SocialLink[]):string {return links.filter(l=>l.url!=='').map(l=>`<a href="${esc(l.url)}" aria-label="${esc(l.label)}"><img src="assets/generated/link-${slug(l.label)}.svg" alt="${esc(l.label)}" height="38" /></a>`).join(' ');}
-function themed(name:string,alt:string,w:number):string{
- return `<picture><source media="(prefers-color-scheme: dark)" srcset="assets/generated/${name}-dark.svg" /><img src="assets/generated/${name}-light.svg" alt="${esc(alt)}" width="${w}" /></picture>`;
+function showLinks(links:SocialLink[],base='assets/'):string {return links.filter(l=>l.url!=='').map(l=>`<a href="${esc(l.url)}" aria-label="${esc(l.label)}"><img src="${base}generated/link-${slug(l.label)}.svg" alt="${esc(l.label)}" height="38" /></a>`).join(' ');}
+function themed(name:string,alt:string,w:number,base='assets/'):string{
+ return `<picture><source media="(prefers-color-scheme: dark)" srcset="${base}generated/${name}-dark.svg" /><img src="${base}generated/${name}-light.svg" alt="${esc(alt)}" width="${w}" /></picture>`;
 }
-function responsiveIdentity(p:Profile):string{
+function responsiveIdentity(p:Profile,base='assets/'):string{
  const alt=p.name+' — '+p.headline;
- return `<picture><source media="(max-width: 600px) and (prefers-color-scheme: dark)" srcset="assets/generated/identity-dark.svg" />`+
- `<source media="(max-width: 600px)" srcset="assets/generated/identity-light.svg" />`+
- `<source media="(prefers-color-scheme: dark)" srcset="assets/generated/identity-desktop-dark.svg" />`+
- `<img src="assets/generated/identity-desktop-light.svg" alt="${esc(alt)}" width="790" /></picture>`;
+ return `<picture><source media="(max-width: 600px) and (prefers-color-scheme: dark)" srcset="${base}generated/identity-dark.svg" />`+
+ `<source media="(max-width: 600px)" srcset="${base}generated/identity-light.svg" />`+
+ `<source media="(prefers-color-scheme: dark)" srcset="${base}generated/identity-desktop-dark.svg" />`+
+ `<img src="${base}generated/identity-desktop-light.svg" alt="${esc(alt)}" width="790" /></picture>`;
 }
-function renderAbout(p:Profile):string{
+function renderAbout(p:Profile,base='assets/'):string{
  const alt=`About: ${p.about.description}; ${p.about.highlights.join('; ')}. Tech and Tools: ${p.skills.map(s=>s.name).join(', ')}`;
  return `<p align="center"><picture>`+
- `<source media="(max-width: 600px) and (prefers-color-scheme: dark)" srcset="assets/generated/profile-info-mobile-dark.svg" />`+
- `<source media="(max-width: 600px)" srcset="assets/generated/profile-info-mobile-light.svg" />`+
- `<source media="(prefers-color-scheme: dark)" srcset="assets/generated/profile-info-desktop-dark.svg" />`+
- `<img src="assets/generated/profile-info-desktop-light.svg" alt="${esc(alt)}" width="790" /></picture></p>`;
+ `<source media="(max-width: 600px) and (prefers-color-scheme: dark)" srcset="${base}generated/profile-info-mobile-dark.svg" />`+
+ `<source media="(max-width: 600px)" srcset="${base}generated/profile-info-mobile-light.svg" />`+
+ `<source media="(prefers-color-scheme: dark)" srcset="${base}generated/profile-info-desktop-dark.svg" />`+
+ `<img src="${base}generated/profile-info-desktop-light.svg" alt="${esc(alt)}" width="790" /></picture></p>`;
 }
 export const slug=(s:string)=>s.toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'');
-export function renderReadme(p:Profile,projects:Project[]):string{
- const cards=renderProjectTable(projects.filter(x=>x.featured),p.layout.projectsPerRow);
- const links=showLinks(p.links);
+function pageHref(target:number,current:number):string{
+ const path=target===0?(current===0?'README.md':'../README.md'):
+  (current===0?`projects/page-${target+1}.md`:`page-${target+1}.md`);
+ return `${path}#featured-projects`;
+}
+function projectPager(page:number,total:number,base:string):string{
+ if(total<=1)return '';
+ const previous=(page-1+total)%total,next=(page+1)%total;
+ const control=(target:number,icon:string,label:string,w:number)=>
+  `<a href="${pageHref(target,page)}" aria-label="${esc(label)}"><img src="${base}generated/${icon}.svg" alt="${esc(label)}" width="${w}" /></a>`;
+ const dots=Array.from({length:total},(_,i)=>control(i,i===page?'pager-dot-active':'pager-dot',`Page ${i+1} of ${total}${i===page?' (current)':''}`,24)).join(' ');
+ return `<p align="center">${control(previous,'pager-left',`Previous projects, page ${previous+1} of ${total}`,42)} &nbsp; ${dots} &nbsp; ${control(next,'pager-right',`Next projects, page ${next+1} of ${total}`,42)}</p>`;
+}
+function pagerIconSvg(name:string):string{
+ const start=`<svg xmlns="http://www.w3.org/2000/svg" width="${name.startsWith('pager-dot')?24:42}" height="${name.startsWith('pager-dot')?32:42}" role="img">`;
+ if(name==='pager-dot-active')return start+'<circle cx="12" cy="16" r="6" fill="#f7e2b5"/><circle cx="12" cy="16" r="8" fill="none" stroke="#655184" stroke-width="2"/></svg>';
+ if(name==='pager-dot')return start+'<circle cx="12" cy="16" r="5" fill="#7b83a3"/></svg>';
+ const left=name==='pager-left';
+ return start+`<circle cx="21" cy="21" r="18" fill="#24304d" stroke="#9a9ab7" stroke-width="2"/><path d="${left?'m24 13 -8 8 8 8':'m18 13 8 8 -8 8'}" fill="none" stroke="#f2edff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
+}
+export function renderReadme(p:Profile,projects:Project[],page=0):string{
+ const featured=projects.filter(x=>x.featured);
+ const pageCount=Math.max(1,Math.ceil(featured.length/p.layout.projectsPerPage));
+ assert(page>=0&&page<pageCount,`Project page ${page+1} does not exist`);
+ const base=page===0?'assets/':'../assets/';
+ const cards=renderProjectTable(featured.slice(page*p.layout.projectsPerPage,(page+1)*p.layout.projectsPerPage),p.layout.projectsPerRow,base);
+ const links=showLinks(p.links,base);
  return `<!-- GENERATED FILE. Edit data/profile.json or data/projects.json, then run npm run build. -->\n\n`+
- `<p align="center"><img src="assets/hero.webp" alt="Cozy pixel-art cabin at sunset. Sharon codes beside Winston, a cat, and a friendly AI robot." width="100%" /></p>\n\n`+
- `<p align="center">${responsiveIdentity(p)}</p>\n`+
+ `<p align="center"><img src="${base}hero.webp" alt="Cozy pixel-art cabin at sunset. Sharon codes beside Winston, a cat, and a friendly AI robot." width="100%" /></p>\n\n`+
+ `<p align="center">${responsiveIdentity(p,base)}</p>\n`+
  (links?`<p align="center">${links}</p>\n`:'')+`\n`+
- `<p align="center">${themed('heading-projects','Featured Projects',350)}</p>\n${cards}\n\n`+renderAbout(p)+`\n\n`+
- `<p align="center"><img src="assets/footer.webp" alt="Winston the dog and a sleeping cat resting in the grass" width="100%" /></p>\n\n`+
+ `<a name="featured-projects"></a>\n<p align="center">${themed('heading-projects','Featured Projects',350,base)}</p>\n${projectPager(page,pageCount,base)}\n${cards}\n\n`+renderAbout(p,base)+`\n\n`+
+ `<p align="center"><img src="${base}footer.webp" alt="Winston the dog and a sleeping cat resting in the grass" width="100%" /></p>\n\n`+
  `<!-- Generated with local TypeScript; see CONTRIBUTING.md for editing instructions. -->\n`;
 }
 export function outputs(profile:Profile,projects:Project[]):Map<string,string>{
  const files=new Map<string,string>();
  files.set('README.md',renderReadme(profile,projects));
+ const count=Math.max(1,Math.ceil(projects.filter(p=>p.featured).length/profile.layout.projectsPerPage));
+ for(let page=1;page<count;page++)files.set(`projects/page-${page+1}.md`,renderReadme(profile,projects,page));
+ for(const name of ['pager-left','pager-right','pager-dot','pager-dot-active'])files.set(`assets/generated/${name}.svg`,pagerIconSvg(name));
  for(const dark of [false,true]){
   const theme=dark?'dark':'light';
   files.set(`assets/generated/identity-${theme}.svg`,identitySvg(profile,dark));
@@ -170,6 +198,13 @@ export function run(check=false):void{
   if(name.endsWith('.svg')&&!files.has(`assets/generated/${name}`)){
    if(check){console.error(`Obsolete generated asset: ${name}`);mismatches++;}
    else unlinkSync(resolve(generatedDir,name));
+  }
+ }
+ const pagesDir=resolve(root,'projects');
+ if(existsSync(pagesDir))for(const name of readdirSync(pagesDir)){
+  if(/^page-\d+\.md$/.test(name)&&!files.has(`projects/${name}`)){
+   if(check){console.error(`Obsolete project page: ${name}`);mismatches++;}
+   else unlinkSync(resolve(pagesDir,name));
   }
  }
  for(const [filename,contents] of files){const target=resolve(root,filename);

@@ -74,6 +74,7 @@
     }
   ],
   "layout": {
-    "projectsPerRow": 2
+    "projectsPerRow": 2,
+    "projectsPerPage": 2
   }
 }
