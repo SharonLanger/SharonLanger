@@ -67,7 +67,7 @@ export function renderProjectTable(items:Project[],columns=3):string{
       `<a href="${esc(p.links.repo)}" aria-label="${esc(p.name)} repository"><picture><source media="(max-width: 600px)" srcset="assets/generated/${p.id}-mobile.svg" /><img src="assets/generated/${p.id}.svg" alt="${esc(p.name)} — ${esc(p.description)}" width="${Math.floor(90/columns)}%" /></picture></a>`);
     const row=`<p align="center">${cards.join(' &nbsp;&nbsp; ')}</p>`;
     const next=index+columns;
-    return next<items.length?row+`\n<details>\n<summary><img src="assets/generated/next-projects.svg" alt="Show next ${Math.min(columns,items.length-next)} projects" width="220" /></summary>\n${renderGroup(next)}\n</details>`:row;
+    return next<items.length?row+`\n<details>\n<summary>Next ${Math.min(columns,items.length-next)} projects →</summary>\n${renderGroup(next)}\n</details>`:row;
   };
   return renderGroup(0);
 }
@@ -119,11 +119,6 @@ function responsiveIdentity(p:Profile):string{
  `<source media="(prefers-color-scheme: dark)" srcset="assets/generated/identity-desktop-dark.svg" />`+
  `<img src="assets/generated/identity-desktop-light.svg" alt="${esc(alt)}" width="790" /></picture>`;
 }
-function nextProjectsSvg():string{
- return `<svg xmlns="http://www.w3.org/2000/svg" width="220" height="39" viewBox="0 0 220 39" role="img" aria-label="Show next projects">`+
- `<rect width="220" height="39" rx="7" fill="#243b57"/>${pixelText(14,26,'NEXT PROJECTS',15,'#aee5ff')}`+
- `<path d="m194 13 10 7 -10 7" fill="none" stroke="#aee5ff" stroke-width="3"/></svg>`;
-}
 function renderAbout(p:Profile):string{
  const skills=p.skills.map(s=>`<img src="assets/generated/skill-${slug(s.name)}.svg" alt="${esc(s.name)}" height="38" />`).join(' ');
  return `<p align="center">${themed('heading-about','About',350)}</p>\n`+
@@ -146,7 +141,6 @@ export function renderReadme(p:Profile,projects:Project[]):string{
 export function outputs(profile:Profile,projects:Project[]):Map<string,string>{
  const files=new Map<string,string>();
  files.set('README.md',renderReadme(profile,projects));
- files.set('assets/generated/next-projects.svg',nextProjectsSvg());
  for(const dark of [false,true]){
   const theme=dark?'dark':'light';
   files.set(`assets/generated/identity-${theme}.svg`,identitySvg(profile,dark));
