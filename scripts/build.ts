@@ -46,7 +46,9 @@ export function validate(profile:Profile, projects:Project[], icons:IconCatalog)
     requireText(p.description,`project ${p.id} description`,240);
     assert(typeof p.featured==='boolean',`project ${p.id} featured must be boolean`);
     assert(Array.isArray(p.tags)&&p.tags.length<=3,`project ${p.id} needs 0-3 tags`);
-    p.tags.forEach((id,j)=>requireText(requireIcon(id).label,`tag ${p.id}/${j}`,13));
+    p.tags.forEach(id => {
+      assert(requireIcon(id).image, `Project ${p.id} tag ${id} requires an SVG in data/icons.json`);
+    });
     assert(p.links!==null&&typeof p.links==='object',`project ${p.id} links missing`);
     assert(allowedUrl(p.links.repo),`project ${p.id} requires an https repo URL`);
     for(const field of ['docs','demo'] as const)if(p.links[field]!==undefined)validateOptionalLink(p.links[field],`project ${p.id} ${field}`);
@@ -102,8 +104,8 @@ function profileInfoSvg(p:Profile,icons:IconCatalog,dark:boolean,mobile:boolean)
  const toolsTitleY=mobile?leftEnd+38:40;
  const badgesY=toolsTitleY+28;
  const skills = p.skills.map(id => icons[id]);
- const logos = skills.filter(skill => skill.image);
- const textSkills = skills.filter(skill => !skill.image);
+ const logos = skills.filter(skill => skill.iconOnly);
+ const textSkills = skills.filter(skill => !skill.iconOnly);
  const textSkillsY = badgesY + Math.ceil(logos.length / 6) * 52;
  const badgesEnd = textSkillsY + Math.ceil(textSkills.length / 2) * 42;
  const h=Math.max(leftEnd,badgesEnd)+18;
@@ -118,8 +120,11 @@ function profileInfoSvg(p:Profile,icons:IconCatalog,dark:boolean,mobile:boolean)
  }).join('');
  const badges=textSkills.map((skill,i)=>{
   const x=toolsX+(i%2)*(mobile?174:184),y=textSkillsY+Math.floor(i/2)*42;
-  return `<rect x="${x}" y="${y}" width="${mobile?166:174}" height="35" rx="7" fill="#263454"/>`+
-   pixelText(x+10,y+24,wrap(skill.label,13,mobile?146:154,1)[0],13,'#f3f3fc');
+  const labelOffset = skill.image ? 32 : 10;
+  const badgeWidth = mobile ? 166 : 174;
+  return `<rect x="${x}" y="${y}" width="${badgeWidth}" height="35" rx="7" fill="#263454"/>`+
+   iconImage(skill, x + 8, y + 8, 19) +
+   pixelText(x+labelOffset,y+24,wrap(skill.label,13,badgeWidth-labelOffset-8,1)[0],13,'#f3f3fc');
  }).join('');
  return `<svg xmlns="http://www.w3.org/2000/svg" width="${w}" height="${h}" viewBox="0 0 ${w} ${h}" role="img" aria-label="${esc(alt)}">`+
  pixelText(left,40,'About',24,title)+
@@ -160,7 +165,7 @@ export function renderReadme(p:Profile,projects:Project[],icons:IconCatalog):str
  const cards=renderProjectTable(projects.filter(x=>x.featured),icons,p.layout.projectsPerRow,base);
  const gallery=`<p align="center">${themed('heading-projects','Featured Projects',350,base)}</p>\n${cards}`;
  const links=showLinks(p.links,base);
- return `<!-- GENERATED FILE. Edit data/profile.json or data/projects.json, then run npm run build. -->\n\n`+
+ return `<!-- GENERATED FILE. Edit data/profile.json, data/projects.json, or data/icons.json, then run npm run build. -->\n\n`+
  `<p align="center"><img src="${base}hero.webp" alt="Cozy pixel-art cabin at sunset. Sharon codes beside Winston, a cat, and a friendly AI robot." width="100%" /></p>\n\n`+
  `<p align="center">${responsiveIdentity(p,base)}</p>\n`+
  (links?`<p align="center">${links}</p>\n`:'')+`\n`+

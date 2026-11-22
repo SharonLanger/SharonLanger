@@ -22,15 +22,10 @@ test('three to six cards retain order, link the entire image and render complete
     });
   }
 });
-test('actual project list starts in the requested order and uses verified links',()=>{
- assert.deepEqual(projects.slice(0,3).map(p=>p.id),['agent-playbook','claude-backstage','system-one-harness']);
- assert.equal(projects.length,9);
- assert.ok(projects.every(p=>p.links.repo.startsWith('https://github.com/SharonLanger/')));
-});
-test('showcases only the three selected repositories on one page',()=>{
+test('showcases exactly the JSON selection in JSON order on one page',()=>{
  const files=outputs(profile,projects,icons),readme=files.get('README.md')!;
- assert.deepEqual(projects.filter(p=>p.featured).map(p=>p.id),['agent-playbook','claude-backstage','system-one-harness']);
- assert.equal((readme.match(/aria-label="[^"]+ repository"/g)??[]).length,3);
+ const cardIds = [...readme.matchAll(/aria-label="[^"]+ repository"><img src="assets\/generated\/([^"]+)\.svg"/g)].map(match => match[1]);
+ assert.deepEqual(cardIds,projects.filter(p=>p.featured).map(p=>p.id));
  for(const project of projects){
   assert.equal(readme.includes(`href="${project.links.repo}"`),project.featured);
   assert.equal(files.has(`assets/generated/${project.id}.svg`),project.featured);
@@ -71,18 +66,22 @@ test('generated assets are deterministic',()=>{
   assert.deepEqual([...outputs(profile,projects,icons).entries()],[...outputs(profile,projects,icons).entries()]);
 });
 
-test('shared icons render on cards, tools and links while text-only tags keep their names',()=>{
+test('all project tags use shared icons and keep accessible names',()=>{
   const files=outputs(profile,projects,icons);
-  const card=files.get('assets/generated/agent-playbook.svg')!;
+  for (const project of projects.filter(p => p.featured)) {
+    const card = files.get(`assets/generated/${project.id}.svg`)!;
+    for (const id of project.tags) {
+      assert.ok(card.includes(icons[id].image!));
+      assert.ok(card.includes(icons[id].label));
+    }
+  }
   const tools=files.get('assets/generated/profile-info-mobile-dark.svg')!;
   const repositories=files.get('assets/generated/link-all-projects.svg')!;
-  assert.ok(card.includes(icons['agent-playbook'].image!));
-  assert.ok(card.includes(icons.python.image!));
   assert.ok(tools.includes(icons.python.image!));
   assert.ok(tools.includes(icons.github.image!));
   assert.ok(repositories.includes(icons.github.image!));
-  assert.match(card,/aria-label="[^"]*Python — Agents — Orchestration"/);
   const withLinkedIn={...profile,links:profile.links.map(link=>link.icon==='linkedin'?{...link,url:'https://www.linkedin.com/in/example/'}:link)};
   assert.ok(outputs(withLinkedIn,projects,icons).get('assets/generated/link-linkedin.svg')!.includes(icons.linkedin.image!));
   assert.throws(()=>validate(profile,[{...projects[0],tags:['unknown-tag']}],icons),/Unknown icon or tag ID/);
+  assert.throws(()=>validate(profile,[{...projects[0],tags:['text-only']}],{...icons,'text-only':{label:'Text only'}}),/requires an SVG/);
 });

@@ -4,53 +4,65 @@
     "file": "agent-playbook.svg"
   },
   "agents": {
-    "label": "Agents"
+    "label": "Agents",
+    "file": "agents.svg"
   },
   "ai": {
-    "label": "AI"
+    "label": "AI",
+    "file": "ai.svg"
   },
   "ai-llms": {
-    "label": "AI / LLMs"
+    "label": "AI / LLMs",
+    "file": "ai.svg"
   },
   "backend": {
-    "label": "Backend"
+    "label": "Backend",
+    "file": "backend.svg"
   },
   "book": {
     "label": "Book",
     "file": "book.svg"
   },
   "bot": {
-    "label": "Bot"
+    "label": "Bot",
+    "file": "bot.svg"
   },
   "check": {
     "label": "Check mark",
     "file": "check.svg"
   },
   "claude": {
-    "label": "Claude"
+    "label": "Claude",
+    "file": "claude.svg"
   },
   "claude-backstage": {
     "label": "Claude Backstage",
     "file": "claude-backstage.svg"
   },
   "code-metrics": {
-    "label": "Code Metrics"
+    "label": "Code Metrics",
+    "file": "code-metrics.svg"
   },
   "concurrency": {
-    "label": "Concurrency"
+    "label": "Concurrency",
+    "file": "concurrency.svg"
   },
   "dev-tools": {
-    "label": "Dev Tools"
+    "label": "Dev Tools",
+    "file": "dev-tools.svg"
   },
   "docker": {
     "label": "Docker",
-    "file": "docker.svg"
+    "file": "docker.svg",
+    "iconOnly": true
   },
   "dx": {
-    "label": "DX"
+    "label": "DX",
+    "file": "dx.svg"
   },
   "experiments": {
-    "label": "Experiments"
+    "label": "Experiments",
+    "file": "experiments.svg"
   },
   "flask": {
     "label": "Flask",
@@ -58,13 +70,16 @@
   },
   "github": {
     "label": "GitHub",
-    "file": "github.svg"
+    "file": "github.svg",
+    "iconOnly": true
   },
   "java": {
-    "label": "Java"
+    "label": "Java",
+    "file": "java.svg"
   },
   "kafka": {
-    "label": "Kafka"
+    "label": "Kafka",
+    "file": "kafka.svg"
   },
   "linkedin": {
     "label": "LinkedIn",
@@ -75,23 +90,29 @@
     "file": "mail.svg"
   },
   "mlx": {
-    "label": "MLX"
+    "label": "MLX",
+    "file": "mlx.svg"
   },
   "node-js": {
     "label": "Node.js",
-    "file": "node-js.svg"
+    "file": "node-js.svg",
+    "iconOnly": true
   },
   "observability": {
-    "label": "Observability"
+    "label": "Observability",
+    "file": "observability.svg"
   },
   "orchestration": {
-    "label": "Orchestration"
+    "label": "Orchestration",
+    "file": "orchestration.svg"
   },
   "polls": {
-    "label": "Polls"
+    "label": "Polls",
+    "file": "polls.svg"
   },
   "postgresql": {
-    "label": "PostgreSQL"
+    "label": "PostgreSQL",
+    "file": "postgresql.svg"
   },
   "project": {
     "label": "Project",
@@ -99,29 +120,36 @@
   },
   "python": {
     "label": "Python",
-    "file": "python.svg"
+    "file": "python.svg",
+    "iconOnly": true
   },
   "react": {
-    "label": "React"
+    "label": "React",
+    "file": "react.svg"
   },
   "rest": {
-    "label": "REST"
+    "label": "REST",
+    "file": "rest.svg"
   },
   "spring": {
-    "label": "Spring"
+    "label": "Spring",
+    "file": "spring.svg"
   },
   "system-one-harness": {
     "label": "System One Harness",
     "file": "system-one-harness.svg"
   },
   "telegram": {
-    "label": "Telegram"
+    "label": "Telegram",
+    "file": "telegram.svg"
   },
   "typescript": {
     "label": "TypeScript",
-    "file": "typescript.svg"
+    "file": "typescript.svg",
+    "iconOnly": true
   },
   "ui": {
-    "label": "UI"
+    "label": "UI",
+    "file": "ui.svg"
   }
 }

@@ -1,4 +1,4 @@
-<!-- GENERATED FILE. Edit data/profile.json or data/projects.json, then run npm run build. -->
+<!-- GENERATED FILE. Edit data/profile.json, data/projects.json, or data/icons.json, then run npm run build. -->
 
 <p align="center"><img src="assets/hero.webp" alt="Cozy pixel-art cabin at sunset. Sharon codes beside Winston, a cat, and a friendly AI robot." width="100%" /></p>
 

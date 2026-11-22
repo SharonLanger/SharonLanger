@@ -8,16 +8,19 @@ export function cardSvg(project:ArtworkProject, icons:IconCatalog):string{
  const w=350,h=235; const lines=wrap(project.description,15,310,3);
  const projectIcon = icons[project.icon].image ? icons[project.icon] : icons.project;
  const pills = project.tags.map(id => icons[id]);
- let px=20;
- const tags = pills.map((tag, i) => {
-   const tagWidth = tag.image ? 34 : width(tag.label, 12) + 18;
-   if (px + tagWidth > 334) return '';
-   const badge = rect(px, 171, tagWidth, 27, i === 0 && !tag.image ? '#245aa0' : '#343c74', 8);
-   const content = tag.image
-     ? iconImage(tag, px + 8, 175, 18)
-     : pixelText(px + 9, 189, tag.label, 12, '#ecf5ff');
-   px += tagWidth + 8;
-   return badge + content;
+ const gap = 8;
+ const badgeBaseWidth = 34;
+ const labelWidth = pills.reduce((sum, tag) => sum + (tag.iconOnly ? 0 : width(tag.label, 1)), 0);
+ const availableLabelWidth = w - 40 - pills.length * badgeBaseWidth - Math.max(0, pills.length - 1) * gap;
+ const labelSize = Math.min(12, availableLabelWidth / Math.max(1, labelWidth));
+ let x = 20;
+ const tags = pills.map(tag => {
+   const badgeWidth = badgeBaseWidth + (tag.iconOnly ? 0 : width(tag.label, labelSize));
+   const badge = rect(x, 171, badgeWidth, 27, '#343c74', 8);
+   const icon = iconImage(tag, x + 8, 175, 18);
+   const label = tag.iconOnly ? '' : pixelText(x + 28, 185 + labelSize / 3, tag.label, labelSize, '#ecf5ff');
+   x += badgeWidth + gap;
+   return badge + icon + label;
  }).join('');
  const alt = [project.name, project.description, ...pills.map(tag => tag.label)].join(' — ');
  return `<svg xmlns="http://www.w3.org/2000/svg" width="${w}" height="${h}" viewBox="0 0 ${w} ${h}" role="img" aria-label="${escapeXml(alt)}">`
