@@ -1,11 +1,12 @@
 # In-place gallery preview
 <p align="center"><img src="../assets/generated/heading-projects-light.svg" alt="Featured Projects" width="350" /></p>
+<p align="center"><a href="#pair-2">Next pair →</a></p>
 <details name="featured-gallery" open>
 <summary>● Page 1 of 5 · Agent Playbook + Claude Backstage</summary>
 <p align="center"><a href="https://github.com/SharonLanger/agent-playbook"><img src="../assets/generated/agent-playbook.svg" alt="Agent Playbook: Local-first agent workflows, orchestration, observability, and adapters." width="410" /></a> &nbsp;&nbsp; <a href="https://github.com/SharonLanger/claude-backstage"><img src="../assets/generated/claude-backstage.svg" alt="Claude Backstage: Developer tooling and workflow visibility for Claude Code." width="410" /></a></p>
 </details>
 <details name="featured-gallery">
-<summary>● Page 2 of 5 · System One Harness + Repo Probe</summary>
+<summary>● Page 2 of 5 · System One Harness + Repo Probe</summary><div id="pair-2"></div>
 <p align="center"><a href="https://github.com/SharonLanger/system-one-harness"><img src="../assets/generated/system-one-harness.svg" alt="System One Harness: Experiments with fast AI decision layers and agent runtime behavior." width="410" /></a> &nbsp;&nbsp; <a href="https://github.com/SharonLanger/repo-probe"><img src="../assets/generated/repo-probe.svg" alt="Repo Probe: Maps codebase metrics by folder and derives bottom-up insights." width="410" /></a></p>
 </details>
 <details name="featured-gallery">
