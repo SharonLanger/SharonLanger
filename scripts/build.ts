@@ -106,8 +106,8 @@ function profileInfoSvg(p:Profile,icons:IconCatalog,dark:boolean,mobile:boolean)
  const skills = p.skills.map(id => icons[id]);
  const logos = skills.filter(skill => skill.iconOnly);
  const textSkills = skills.filter(skill => !skill.iconOnly);
- const textSkillsY = badgesY + Math.ceil(logos.length / 6) * 52;
- const badgesEnd = textSkillsY + Math.ceil(textSkills.length / 2) * 42;
+ const textSkillsY = badgesY + Math.ceil(logos.length / 6) * 55;
+ const badgesEnd = textSkillsY + Math.ceil(textSkills.length / 2) * 44;
  const h=Math.max(leftEnd,badgesEnd)+18;
  const alt = profileInfoAlt(p, icons);
  const foreground=dark?'#e0eaf7':'#253a59';
@@ -115,16 +115,16 @@ function profileInfoSvg(p:Profile,icons:IconCatalog,dark:boolean,mobile:boolean)
  const title=dark?'#f5e7bf':'#614b22';
  const logoBadges = logos.map((logo, i) => {
   const x = toolsX + (i % 6) * 55;
-  const y = badgesY + Math.floor(i / 6) * 52;
-  return `<rect x="${x}" y="${y}" width="43" height="43" rx="7" fill="#263454"/>` + iconImage(logo, x + 7, y + 7, 29);
+  const y = badgesY + Math.floor(i / 6) * 55;
+  return `<rect x="${x}" y="${y}" width="47" height="47" rx="7" fill="#263454"/>` + iconImage(logo, x + 5.5, y + 5.5, 36);
  }).join('');
  const badges=textSkills.map((skill,i)=>{
-  const x=toolsX+(i%2)*(mobile?174:184),y=textSkillsY+Math.floor(i/2)*42;
-  const labelOffset = skill.image ? 32 : 10;
+  const x=toolsX+(i%2)*(mobile?174:184),y=textSkillsY+Math.floor(i/2)*44;
+  const labelOffset = skill.image ? 38 : 10;
   const badgeWidth = mobile ? 166 : 174;
-  return `<rect x="${x}" y="${y}" width="${badgeWidth}" height="35" rx="7" fill="#263454"/>`+
-   iconImage(skill, x + 8, y + 8, 19) +
-   pixelText(x+labelOffset,y+24,wrap(skill.label,13,badgeWidth-labelOffset-8,1)[0],13,'#f3f3fc');
+  return `<rect x="${x}" y="${y}" width="${badgeWidth}" height="37" rx="7" fill="#263454"/>`+
+   iconImage(skill, x + 7, y + 6, 25) +
+   pixelText(x+labelOffset,y+25,wrap(skill.label,13,badgeWidth-labelOffset-8,1)[0],13,'#f3f3fc');
  }).join('');
  return `<svg xmlns="http://www.w3.org/2000/svg" width="${w}" height="${h}" viewBox="0 0 ${w} ${h}" role="img" aria-label="${esc(alt)}">`+
  pixelText(left,40,'About',24,title)+
