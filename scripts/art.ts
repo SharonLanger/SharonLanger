@@ -23,12 +23,3 @@ export function cardSvg(project:ArtworkProject):string{
  +lines.map((line,i)=>pixelText(20,105+i*21,line,15,'#e0e5f2')).join('')
  +tags+rect(20,208,62,4,'#5a9fee',2)+rect(90,208,46,4,'#946fe8',2)+`</svg>`;
 }
-/** Short card for narrow viewports: keeps two clickable cards readable. Full
- * description and tags remain in the linked image's alternative text. */
-export function mobileCardSvg(project:ArtworkProject):string{
- const title=wrap(project.name,14,145,2);
- return `<svg xmlns="http://www.w3.org/2000/svg" width="165" height="140" viewBox="0 0 165 140" role="img" aria-label="${escapeXml(project.name)}: ${escapeXml(project.description)}">`+
- rect(0,0,165,140,'#162132',9)+`<g transform="translate(2 0) scale(.72)">${projectIcon(project.icon)}</g>`+
- title.map((line,i)=>pixelText(13,96+i*21,line,14,'#f8f8ff')).join('')+
- rect(13,130,44,3,'#5a9fee',1)+rect(62,130,31,3,'#946fe8',1)+'</svg>';
-}

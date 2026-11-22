@@ -1,7 +1,7 @@
 import { readFileSync, mkdirSync, writeFileSync, existsSync, readdirSync, unlinkSync } from 'node:fs';
 import { resolve, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { cardSvg, mobileCardSvg, escapeXml } from './art.ts';
+import { cardSvg, escapeXml } from './art.ts';
 import { pixelText, width, wrap } from './pixel.ts';
 
 export type SocialLink = { label:string; icon:string; url:string };
@@ -52,24 +52,16 @@ export function load():{profile:Profile;projects:Project[]}{
   const projects=(JSON.parse(readFileSync(resolve(root,'data/projects.json'),'utf8')) as {projects:Project[]}).projects;
   validate(profile,projects);return {profile,projects};
 }
-function skillSvg(s:Skill):string{
-  const label=s.name, badgeWidth=Math.ceil(Math.max(116,width(label,14)+67));
-  return `<svg xmlns="http://www.w3.org/2000/svg" width="${badgeWidth}" height="38" viewBox="0 0 ${badgeWidth} 38" role="img" aria-label="${esc(label)}">`+
-    `<rect x="0" y="0" width="${badgeWidth}" height="38" rx="8" fill="#263454"/>`+
-    `<rect x="8" y="7" width="25" height="24" rx="5" fill="#416cb4"/>`+
-    pixelText(11,24,s.icon,11,'#fff')+
-    pixelText(43,25,label,14,'#f3f3fc')+'</svg>';
-}
 export function renderProjectTable(items:Project[],columns=3):string{
   if(items.length===0)return '_More projects coming soon._';
-  const renderGroup=(index:number):string=>{
+  const rows:string[]=[];
+  const cardWidth=Math.floor(820/columns);
+  for(let index=0;index<items.length;index+=columns){
     const cards=items.slice(index,index+columns).map(p=>
-      `<a href="${esc(p.links.repo)}" aria-label="${esc(p.name)} repository"><picture><source media="(max-width: 600px)" srcset="assets/generated/${p.id}-mobile.svg" /><img src="assets/generated/${p.id}.svg" alt="${esc(p.name)} — ${esc(p.description)}" width="${Math.floor(90/columns)}%" /></picture></a>`);
-    const row=`<p align="center">${cards.join(' &nbsp;&nbsp; ')}</p>`;
-    const next=index+columns;
-    return next<items.length?row+`\n<details>\n<summary>Next ${Math.min(columns,items.length-next)} projects →</summary>\n${renderGroup(next)}\n</details>`:row;
-  };
-  return renderGroup(0);
+      `<a href="${esc(p.links.repo)}" aria-label="${esc(p.name)} repository"><img src="assets/generated/${p.id}.svg" alt="${esc(p.name)} — ${esc(p.description)}" width="${cardWidth}" /></a>`);
+    rows.push(`<p align="center">${cards.join(' &nbsp;&nbsp; ')}</p>`);
+  }
+  return rows.join('\n');
 }
 function headingSvg(label:string,dark:boolean):string{
  return `<svg xmlns="http://www.w3.org/2000/svg" width="350" height="47" viewBox="0 0 350 47" role="img" aria-label="${esc(label)}">${pixelText(4,32,label,24,dark?'#f5e7bf':'#614b22')}</svg>`;
@@ -88,18 +80,34 @@ function desktopIdentitySvg(p:Profile,dark:boolean):string{
  pixelText(220+(550-width(p.name,37))/2,65,p.name,37,dark?'#ffda86':'#694920')+
  subtitle.map((line,i)=>pixelText(220+(550-width(line,17))/2,105+i*28,line,17,dark?'#d3e5fb':'#263c60')).join('')+'</svg>';
 }
-function aboutSvg(p:Profile,dark:boolean):string{
- const description=wrap(p.about.description,16,330,22);
- const h=20+description.length*25;
- return `<svg xmlns="http://www.w3.org/2000/svg" width="350" height="${h}" viewBox="0 0 350 ${h}" role="img" aria-label="${esc(p.about.description)}">`+
- description.map((line,i)=>pixelText(4,24+i*25,line,16,dark?'#e0eaf7':'#253a59')).join('')+'</svg>';
-}
-function checklistSvg(p:Profile,dark:boolean):string{
- const lines=p.about.highlights.flatMap(item=>wrap(item,16,308,6).map((line,i)=>({line,first:i===0})));
- const h=20+lines.length*27;
- return `<svg xmlns="http://www.w3.org/2000/svg" width="350" height="${h}" viewBox="0 0 350 ${h}" role="img" aria-label="${esc(p.about.highlights.join('; '))}">`+
- lines.map((item,i)=>(item.first?`<path d="M14 ${16+i*27} l5 5 9 -11" fill="none" stroke="${dark?'#a7e0cc':'#176047'}" stroke-width="3"/>`:'')+
- pixelText(38,25+i*27,item.line,16,dark?'#a7e0cc':'#176047')).join('')+'</svg>';
+function profileInfoSvg(p:Profile,dark:boolean,mobile:boolean):string{
+ const w=mobile?350:790;
+ const left=mobile?4:18;
+ const description=wrap(p.about.description,16,mobile?330:350,22);
+ const checks=p.about.highlights.flatMap(item=>wrap(item,16,mobile?300:322,6).map((line,i)=>({line,first:i===0})));
+ const checksY=70+description.length*25+13;
+ const leftEnd=checksY+checks.length*27;
+ const toolsX=mobile?4:420;
+ const toolsTitleY=mobile?leftEnd+38:40;
+ const badgesY=toolsTitleY+28;
+ const badgesEnd=badgesY+Math.ceil(p.skills.length/2)*42;
+ const h=Math.max(leftEnd,badgesEnd)+18;
+ const alt=`About: ${p.about.description}; ${p.about.highlights.join('; ')}. Tech and Tools: ${p.skills.map(s=>s.name).join(', ')}`;
+ const foreground=dark?'#e0eaf7':'#253a59';
+ const green=dark?'#a7e0cc':'#176047';
+ const title=dark?'#f5e7bf':'#614b22';
+ const badges=p.skills.map((s,i)=>{
+  const x=toolsX+(i%2)*(mobile?174:184),y=badgesY+Math.floor(i/2)*42;
+  return `<rect x="${x}" y="${y}" width="${mobile?166:174}" height="35" rx="7" fill="#263454"/>`+
+   `<rect x="${x+6}" y="${y+6}" width="27" height="23" rx="4" fill="#416cb4"/>`+
+   pixelText(x+8,y+23,s.icon,11,'#fff')+pixelText(x+39,y+24,s.name,13,'#f3f3fc');
+ }).join('');
+ return `<svg xmlns="http://www.w3.org/2000/svg" width="${w}" height="${h}" viewBox="0 0 ${w} ${h}" role="img" aria-label="${esc(alt)}">`+
+ pixelText(left,40,'About',24,title)+
+ description.map((line,i)=>pixelText(left,70+i*25,line,16,foreground)).join('')+
+ checks.map((item,i)=>(item.first?`<path d="M${left+9} ${checksY-10+i*27} l5 5 9 -11" fill="none" stroke="${green}" stroke-width="3"/>`:'')+
+ pixelText(left+35,checksY+i*27,item.line,16,green)).join('')+
+ pixelText(toolsX,toolsTitleY,'Tech & Tools',24,title)+badges+'</svg>';
 }
 function socialSvg(link:SocialLink):string{
  const label=link.label;const badgeWidth=Math.ceil(width(label,15)+57);
@@ -120,11 +128,12 @@ function responsiveIdentity(p:Profile):string{
  `<img src="assets/generated/identity-desktop-light.svg" alt="${esc(alt)}" width="790" /></picture>`;
 }
 function renderAbout(p:Profile):string{
- const skills=p.skills.map(s=>`<img src="assets/generated/skill-${slug(s.name)}.svg" alt="${esc(s.name)}" height="38" />`).join(' ');
- return `<p align="center">${themed('heading-about','About',350)}</p>\n`+
- `<p align="center">${themed('about',p.about.description,350)} ${themed('checklist',p.about.highlights.join('; '),350)}</p>\n`+
- `<p align="center">${themed('heading-tools','Tech and Tools',350)}</p>\n`+
- `<p align="center">${skills}</p>`;
+ const alt=`About: ${p.about.description}; ${p.about.highlights.join('; ')}. Tech and Tools: ${p.skills.map(s=>s.name).join(', ')}`;
+ return `<p align="center"><picture>`+
+ `<source media="(max-width: 600px) and (prefers-color-scheme: dark)" srcset="assets/generated/profile-info-mobile-dark.svg" />`+
+ `<source media="(max-width: 600px)" srcset="assets/generated/profile-info-mobile-light.svg" />`+
+ `<source media="(prefers-color-scheme: dark)" srcset="assets/generated/profile-info-desktop-dark.svg" />`+
+ `<img src="assets/generated/profile-info-desktop-light.svg" alt="${esc(alt)}" width="790" /></picture></p>`;
 }
 export const slug=(s:string)=>s.toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'');
 export function renderReadme(p:Profile,projects:Project[]):string{
@@ -145,18 +154,12 @@ export function outputs(profile:Profile,projects:Project[]):Map<string,string>{
   const theme=dark?'dark':'light';
   files.set(`assets/generated/identity-${theme}.svg`,identitySvg(profile,dark));
   files.set(`assets/generated/identity-desktop-${theme}.svg`,desktopIdentitySvg(profile,dark));
-  files.set(`assets/generated/about-${theme}.svg`,aboutSvg(profile,dark));
-  files.set(`assets/generated/checklist-${theme}.svg`,checklistSvg(profile,dark));
+  files.set(`assets/generated/profile-info-desktop-${theme}.svg`,profileInfoSvg(profile,dark,false));
+  files.set(`assets/generated/profile-info-mobile-${theme}.svg`,profileInfoSvg(profile,dark,true));
   files.set(`assets/generated/heading-projects-${theme}.svg`,headingSvg('Featured Projects',dark));
-  files.set(`assets/generated/heading-about-${theme}.svg`,headingSvg('About',dark));
-  files.set(`assets/generated/heading-tools-${theme}.svg`,headingSvg('Tech & Tools',dark));
  }
  for(const link of profile.links.filter(l=>l.url))files.set(`assets/generated/link-${slug(link.label)}.svg`,socialSvg(link));
- for(const skill of profile.skills)files.set(`assets/generated/skill-${slug(skill.name)}.svg`,skillSvg(skill));
- for(const project of projects.filter(p=>p.featured)){
-  files.set(`assets/generated/${project.id}.svg`,cardSvg(project));
-  files.set(`assets/generated/${project.id}-mobile.svg`,mobileCardSvg(project));
- }
+ for(const project of projects.filter(p=>p.featured))files.set(`assets/generated/${project.id}.svg`,cardSvg(project));
  return files;
 }
 export function run(check=false):void{
